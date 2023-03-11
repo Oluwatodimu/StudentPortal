@@ -17,6 +17,9 @@ public class Course extends BaseEntity {
     @Column(name = "course_id)")
     private Long courseId;
 
+    @Column(name = "units")
+    private Integer units;
+
     @ManyToOne
     private Teacher teacher;
 }
