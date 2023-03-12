@@ -1,4 +1,7 @@
 package io.todimu.practice.studentportal.mapper;
 
-public interface TeacherMapper {
+import io.todimu.practice.studentportal.dto.TeacherDto;
+import io.todimu.practice.studentportal.model.Teacher;
+
+public interface TeacherMapper extends EntityMapper<TeacherDto, Teacher> {
 }

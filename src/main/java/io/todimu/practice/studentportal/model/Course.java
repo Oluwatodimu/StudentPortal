@@ -24,4 +24,6 @@ public class Course extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     private Student student;
+
+    // todo might need to remove the student thing here
 }
