@@ -1,11 +1,10 @@
 package io.todimu.practice.studentportal.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -16,6 +15,7 @@ public class Student extends Human {
     @Column(name = "student_id")
     private String studentId;
 
-    @OneToMany(mappedBy = "student")
-    private Set<Course> registeredCourses;
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = "student", allowSetters = true)
+    private Set<Course> registeredCourses = new HashSet<>();
 }

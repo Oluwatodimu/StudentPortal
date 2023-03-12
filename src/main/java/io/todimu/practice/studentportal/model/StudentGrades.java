@@ -9,9 +9,11 @@ import lombok.Data;
 public class StudentGrades extends BaseEntity {
 
     @ManyToOne
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @Column(name = "score")

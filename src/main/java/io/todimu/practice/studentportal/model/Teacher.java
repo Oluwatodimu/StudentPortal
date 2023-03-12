@@ -6,6 +6,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -17,5 +18,5 @@ public class Teacher extends Human {
     private String teacherId;
 
     @OneToMany(mappedBy = "teacher")
-    private Set<Course> coursesTaught;
+    private Set<Course> coursesTaught = new HashSet<>();
 }
