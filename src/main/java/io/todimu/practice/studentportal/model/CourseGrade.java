@@ -11,6 +11,6 @@ import lombok.EqualsAndHashCode;
 public class CourseGrade extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_registration_id", unique = true)
+    @JoinColumn(name = "course_registration_id", referencedColumnName = "id")
     private CourseGrade courseGrade;
 }
