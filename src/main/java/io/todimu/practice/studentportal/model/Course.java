@@ -1,11 +1,16 @@
 package io.todimu.practice.studentportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "course")
+@EqualsAndHashCode(callSuper = true)
 public class Course extends BaseEntity {
 
     @Column(name = "name")
@@ -16,4 +21,12 @@ public class Course extends BaseEntity {
 
     @Column(name = "units")
     private Integer units;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = "course", allowSetters = true)
+    private Set<CourseRegistration> courseRegistrations;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = "course", allowSetters = true)
+    private Set<CourseTeacher> courseTeachers;
 }
