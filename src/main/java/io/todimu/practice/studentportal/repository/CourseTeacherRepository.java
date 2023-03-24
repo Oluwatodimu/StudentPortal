@@ -1,9 +1,9 @@
 package io.todimu.practice.studentportal.repository;
 
-import io.todimu.practice.studentportal.model.CourseGrade;
+import io.todimu.practice.studentportal.model.CourseTeacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StudentGradeRepository extends JpaRepository<CourseGrade, Long> {
+public interface CourseTeacherRepository extends JpaRepository<CourseTeacher, Long> {
 }
