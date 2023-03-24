@@ -27,7 +27,7 @@ public abstract class BaseEntity implements Serializable {
     @CreatedBy
     @Column(name = "created_by", nullable = false, length = 100, updatable = false)
     @JsonIgnore
-    private String createdBy = "System";
+    private String createdBy;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)

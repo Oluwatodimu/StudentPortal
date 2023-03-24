@@ -1,22 +1,19 @@
 package io.todimu.practice.studentportal.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "teacher")
+@EqualsAndHashCode(callSuper = true)
 public class Teacher extends Human {
 
-    @Column(name = "teacher_id")
-    private String teacherId;
-
-    @OneToMany(mappedBy = "teacher")
-    private Set<Course> coursesTaught = new HashSet<>();
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = "teacher", allowSetters = true)
+    private Set<CourseTeacher> courseTeachers;
 }
