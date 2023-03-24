@@ -5,7 +5,7 @@ CREATE TABLE `course` (
     `last_modified_by` VARCHAR(255),
     `last_modified_date` DATETIME,
     `name` VARCHAR(64) NOT NULL UNIQUE,
-    `course_id` VARCHAR(64) NOT NULL UNIQUE,
+    `code` VARCHAR(64) NOT NULL UNIQUE,
     `units` INT NOT NULL,
 
     PRIMARY KEY (`id`)

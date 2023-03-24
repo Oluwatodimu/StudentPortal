@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "teacher")
-public class Teacher extends Human {
+@Table(name = "course_registration")
+public class CourseRegistration extends BaseEntity {
 
 }
