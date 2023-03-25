@@ -25,7 +25,4 @@ public class CourseRegistration extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "semester_id")
     private Semester semester;
-
-    @OneToOne(mappedBy = "course_registration")
-    private CourseGrade courseGrade;
 }
