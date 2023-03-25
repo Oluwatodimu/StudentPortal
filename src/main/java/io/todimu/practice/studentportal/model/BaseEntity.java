@@ -27,10 +27,10 @@ public abstract class BaseEntity implements Serializable {
     @CreatedBy
     @Column(name = "created_by", nullable = false, length = 100, updatable = false)
     @JsonIgnore
-    private String createdBy;
+    private String createdBy = "System";
 
     @CreatedDate
-    @Column(name = "created_date", updatable = false)
+    @Column(name = "creation_date", updatable = false)
     @JsonIgnore
     private Instant createdDate = Instant.now();
 

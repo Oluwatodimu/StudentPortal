@@ -1,4 +1,24 @@
 package io.todimu.practice.studentportal.service;
 
+import io.todimu.practice.studentportal.dto.StudentDto;
+import io.todimu.practice.studentportal.dto.request.CreateStudentRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface StudentService {
+
+    StudentDto registerStudent(CreateStudentRequest request);
+
+    Page<StudentDto> getAllStudents(Pageable pageable);
+
+    StudentDto getStudentByFirstAndLastName(String firstName, String lastName);
+
+    StudentDto getStudentById(Long id);
+
+    StudentDto getStudentByEmail(String email);
+
+    StudentDto findByMatricNumber(String matricNumber);
+
+    StudentDto updateStudentData(StudentDto StudentDto);
+
 }
