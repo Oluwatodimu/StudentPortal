@@ -28,7 +28,7 @@ public class StudentController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<StudentDto> register(@RequestBody CreateStudentRequest request) {
-        // todo run controller advice for this
+        // todo run controller advice for handling errors
         log.info("Creating new student");
         StudentDto studentDto = studentService.registerStudent(request);
         return new ResponseEntity<>(studentDto, HttpStatus.CREATED);

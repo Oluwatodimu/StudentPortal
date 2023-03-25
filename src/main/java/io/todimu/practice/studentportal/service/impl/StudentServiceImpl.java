@@ -30,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDto registerStudent(CreateStudentRequest request) {
         StudentDto studentDto = generateStudentDto(request);
-        studentDto = save(studentDto);
+        studentDto = saveStudentDto(studentDto);
         return studentDto;
     }
 
@@ -86,10 +86,10 @@ public class StudentServiceImpl implements StudentService {
         return stringBuilder.toString();
     }
 
-    private StudentDto save(StudentDto studentDto) {
+    private StudentDto saveStudentDto(StudentDto studentDto) {
         Student student = studentMapper.toEntity(studentDto);
         student = studentRepository.save(student);
-        return studentMapper.toDto(student);
+        return toDto(student);
     }
 
     private StudentDto generateStudentDto(CreateStudentRequest request) {
