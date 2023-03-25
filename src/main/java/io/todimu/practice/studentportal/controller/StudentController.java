@@ -26,7 +26,6 @@ public class StudentController {
     private static final Integer PAGE_SIZE = 10;
 
 
-
     @PostMapping(value = "/register")
     public ResponseEntity<StudentDto> register(@RequestBody CreateStudentRequest request) {
         // todo run controller advice for this
