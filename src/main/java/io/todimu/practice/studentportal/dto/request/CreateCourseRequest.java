@@ -1,11 +1,9 @@
-package io.todimu.practice.studentportal.dto;
+package io.todimu.practice.studentportal.dto.request;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
-public class CourseDto {
+public class CreateCourseRequest {
     private String name;
     private Long code;
     private Integer units;

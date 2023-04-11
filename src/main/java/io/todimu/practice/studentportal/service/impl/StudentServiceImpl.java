@@ -1,11 +1,18 @@
 package io.todimu.practice.studentportal.service.impl;
 
+import io.todimu.practice.studentportal.dto.CourseDto;
+import io.todimu.practice.studentportal.dto.CourseRegistrationDto;
+import io.todimu.practice.studentportal.dto.RegisterCourseRequest;
 import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.request.CreateStudentRequest;
 import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import io.todimu.practice.studentportal.mapper.StudentMapper;
+import io.todimu.practice.studentportal.model.Course;
+import io.todimu.practice.studentportal.model.CourseRegistration;
 import io.todimu.practice.studentportal.model.Student;
 import io.todimu.practice.studentportal.repository.StudentRepository;
+import io.todimu.practice.studentportal.service.CourseService;
+import io.todimu.practice.studentportal.service.SemesterService;
 import io.todimu.practice.studentportal.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,8 +20,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,12 +31,18 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentMapper studentMapper;
 
+    private final CourseService courseService;
+
+    private final SemesterService semesterService;
+
+
+
     private static final int BOOKING_CODE_LENGTH = 7;
 
     @Override
     public StudentDto registerStudent(CreateStudentRequest request) {
         StudentDto studentDto = generateStudentDto(request);
-        studentDto = save(studentDto);
+        studentDto = saveStudentDto(studentDto);
         return studentDto;
     }
 
@@ -74,6 +86,22 @@ public class StudentServiceImpl implements StudentService {
         return toDto(student);
     }
 
+    public List<CourseRegistrationDto> registerForCourse(RegisterCourseRequest registerCourseRequest) {
+        Optional<Student> studentOptional = studentRepository.findByMatricNumber(registerCourseRequest.getMatricNumber());
+        Student student = getStudentIfNotEmpty(studentOptional);
+
+        List<CourseDto> courseDtoList = registerCourseRequest.getCourseIdList().stream()
+                .map(courseService::findCourseById)
+                .toList();
+
+        Set<CourseRegistration> courseRegistrationSet = student.getCourseRegistrations();
+//        courseDtoList.forEach(
+//                courseDto -> {}
+//        );
+
+        return null;
+    }
+
     private String generateMatricNumber() {
         String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         Random randomChar = new Random();
@@ -86,10 +114,10 @@ public class StudentServiceImpl implements StudentService {
         return stringBuilder.toString();
     }
 
-    private StudentDto save(StudentDto studentDto) {
+    private StudentDto saveStudentDto(StudentDto studentDto) {
         Student student = studentMapper.toEntity(studentDto);
         student = studentRepository.save(student);
-        return studentMapper.toDto(student);
+        return toDto(student);
     }
 
     private StudentDto generateStudentDto(CreateStudentRequest request) {

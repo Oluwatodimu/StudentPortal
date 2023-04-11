@@ -3,10 +3,12 @@ package io.todimu.practice.studentportal.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @Builder
-public class CourseDto {
-    private String name;
-    private Long code;
-    private Integer units;
+public class SemesterDto {
+
+    private Date startDate;
+    private Date endDate;
 }
