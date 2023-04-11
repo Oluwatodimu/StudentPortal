@@ -10,6 +10,8 @@ public interface CourseService {
 
     CourseDto createCourse(CreateCourseRequest createCourseRequest);
 
+    CourseDto findCourseById(Long id);
+
     CourseDto findCourseByName(String name);
 
     CourseDto findCourseByCode(Long code);

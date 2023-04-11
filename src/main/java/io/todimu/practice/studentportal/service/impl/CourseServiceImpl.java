@@ -29,6 +29,13 @@ public class CourseServiceImpl implements CourseService {
         return courseDto;
     }
 
+    public CourseDto findCourseById(Long id) {
+        Optional<Course> courseOptional = courseRepository.findById(id);
+        Course course = getCourseIfItExists(courseOptional);
+        return toDto(course);
+    }
+
+
     public CourseDto findCourseByName(String name) {
         Optional<Course> courseOptional = courseRepository.findByName(name);
         Course course = getCourseIfItExists(courseOptional);
