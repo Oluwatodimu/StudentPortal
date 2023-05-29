@@ -21,12 +21,11 @@ CREATE TABLE user (
 CREATE TABLE authority (
    id BINARY(16) NOT NULL UNIQUE,
    user_id BINARY(16) NOT NULL,
+   role VARCHAR(15) NOT NULL,
    created_by VARCHAR(255),
    creation_date DATETIME,
    last_modified_by VARCHAR(255),
    last_modified_date DATETIME,
 
-   PRIMARY KEY(id),
-   KEY user_id (user_id),
-   CONSTRAINT new_constraint FOREIGN KEY (user_id) REFERENCES user (user_id)
+   PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

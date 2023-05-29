@@ -8,6 +8,7 @@ spring:
   jackson:
     default-property-inclusion: non_null
 
+
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/student_management_system?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
@@ -21,3 +22,8 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
