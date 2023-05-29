@@ -1,30 +1,55 @@
 package io.todimu.practice.studentportal.service;
 
-import io.todimu.practice.studentportal.dto.CourseRegistrationDto;
-import io.todimu.practice.studentportal.dto.RegisterCourseRequest;
 import io.todimu.practice.studentportal.dto.StudentDto;
+import io.todimu.practice.studentportal.enumeration.StudentStatus;
+import io.todimu.practice.studentportal.mapper.StudentMapper;
+import io.todimu.practice.studentportal.model.Student;
 import io.todimu.practice.studentportal.model.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import io.todimu.practice.studentportal.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Random;
 
-public interface StudentService {
+@Service
+@RequiredArgsConstructor
+public class StudentService {
 
-    StudentDto registerStudent(User user);
+    private final StudentRepository studentRepository;
 
-    Page<StudentDto> getAllStudents(Pageable pageable);
+    private final StudentMapper studentMapper;
 
-    StudentDto getStudentByFirstAndLastName(String firstName, String lastName);
+    private final CourseService courseService;
 
-    StudentDto getStudentById(Long id);
+    private final SemesterService semesterService;
 
-    StudentDto getStudentByEmail(String email);
+    private static final int MATRIC_NUMBER_LENGTH = 6;
 
-    StudentDto findByMatricNumber(String matricNumber);
+    public StudentDto registerStudent(User user) {
+        Student student = createStudent(user);
+        student = studentRepository.save(student);
+        return studentMapper.toDto(student);
+    }
 
-    StudentDto updateStudentData(StudentDto StudentDto);
+    private Student createStudent(User user) {
+        return Student.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .matricNumber(generateMatricNumber())
+                .studentStatus(StudentStatus.ACTIVE)
+                .build();
+    }
 
-    List<CourseRegistrationDto> registerForCourse(RegisterCourseRequest registerCourseRequest);
+    private String generateMatricNumber() {
+        String chars = "0123456789";
+        Random randomChar = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
 
+        for (int i = 0; i < MATRIC_NUMBER_LENGTH; i++) {
+            stringBuilder.append(chars.charAt(randomChar.nextInt(chars.length())));
+        }
+        return stringBuilder.toString();
+    }
 }
