@@ -4,13 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
+import java.util.Objects;
+
+@Getter
+@Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "authority")
-@EqualsAndHashCode(callSuper = true)
 public class Authority extends BaseEntity {
 
     @ManyToOne
@@ -18,4 +22,21 @@ public class Authority extends BaseEntity {
     private User user;
 
     private String role;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role); // Use only role for hashCode calculation
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Authority other = (Authority) obj;
+        return Objects.equals(role, other.role); // Compare only role for equality
+    }
 }
