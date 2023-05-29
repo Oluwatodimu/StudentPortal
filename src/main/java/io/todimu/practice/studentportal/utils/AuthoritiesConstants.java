@@ -8,5 +8,7 @@ public class AuthoritiesConstants {
 
     public static final String TEACHER = "ROLE_TEACHER";
 
+    public static final String AUTHORITIES_HEADER = "Authorization";
+
     public AuthoritiesConstants() {}
 }
