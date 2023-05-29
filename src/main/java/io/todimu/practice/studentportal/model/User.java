@@ -3,19 +3,23 @@ package io.todimu.practice.studentportal.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.todimu.practice.studentportal.enumeration.UserStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.validation.constraints.Pattern;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user")
-@EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
 
     @Column(name = "user_id", updatable = false)
@@ -55,4 +59,22 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId); // Use only userId for hashCode calculation
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        User other = (User) obj;
+        return Objects.equals(userId, other.userId); // Compare only userId for equality
+    }
+
 }

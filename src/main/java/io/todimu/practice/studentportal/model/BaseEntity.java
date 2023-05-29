@@ -25,7 +25,7 @@ public abstract class BaseEntity implements Serializable {
     private UUID id;
 
     @CreatedBy
-    @Column(name = "created_by", nullable = false, length = 100, updatable = false)
+    @Column(name = "created_by", length = 100, updatable = false)
     @JsonIgnore
     private String createdBy;
 
