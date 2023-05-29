@@ -2,7 +2,7 @@ package io.todimu.practice.studentportal.controller.controller;
 
 import io.todimu.practice.studentportal.controller.BaseResponse.BaseResponse;
 import io.todimu.practice.studentportal.dto.StudentUserDto;
-import io.todimu.practice.studentportal.dto.request.RegisterStudentRequest;
+import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.service.UserService;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,9 @@ public class StudentController {
     private final UserService userService;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<BaseResponse> registerStudent(@RequestBody @Validated RegisterStudentRequest registerStudentRequest) {
-        log.info("registering student with email : {}", registerStudentRequest.getEmail());
-        StudentUserDto response = userService.registerStudentUser(registerStudentRequest);
+    public ResponseEntity<BaseResponse> registerStudent(@RequestBody @Validated RegisterUserRequest registerUserRequest) {
+        log.info("registering student with email : {}", registerUserRequest.getEmail());
+        StudentUserDto response = userService.registerStudentUser(registerUserRequest);
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);
     }
 

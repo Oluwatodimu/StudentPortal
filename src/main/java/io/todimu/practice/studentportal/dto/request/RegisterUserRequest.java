@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterStudentRequest {
+public class RegisterUserRequest {
 
     @NonNull private String firstName;
 

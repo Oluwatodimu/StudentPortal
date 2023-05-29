@@ -1,9 +1,7 @@
 package io.todimu.practice.studentportal.service;
 
-import io.todimu.practice.studentportal.dto.ActivationKey;
-import io.todimu.practice.studentportal.dto.StudentDto;
-import io.todimu.practice.studentportal.dto.StudentUserDto;
-import io.todimu.practice.studentportal.dto.request.RegisterStudentRequest;
+import io.todimu.practice.studentportal.dto.*;
+import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.enumeration.UserStatus;
 import io.todimu.practice.studentportal.model.User;
 import io.todimu.practice.studentportal.repository.UserRepository;
@@ -24,6 +22,8 @@ public class UserService {
 
     private final StudentService studentService;
 
+    private final TeacherService teacherService;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityService authorityService;
@@ -31,8 +31,8 @@ public class UserService {
     private final ActivationKeyService activationKeyService;
 
     @Transactional
-    public StudentUserDto registerStudentUser(RegisterStudentRequest registerStudentRequest) {
-        User newUser = createUser(registerStudentRequest);
+    public StudentUserDto registerStudentUser(RegisterUserRequest registerUserRequest) {
+        User newUser = createUser(registerUserRequest, UserStatus.INACTIVE);
         userRepository.save(newUser);
         authorityService.createStudentAuthorities(newUser);
         StudentDto studentDto = studentService.registerStudent(newUser);
@@ -46,15 +46,15 @@ public class UserService {
                 .build();
     }
 
-    private User createUser(RegisterStudentRequest registerStudentRequest) {
+    private User createUser(RegisterUserRequest registerUserRequest, UserStatus userStatus) {
         return User.builder()
                 .userId(UUID.randomUUID())
-                .password(passwordEncoder.encode(registerStudentRequest.getPassword()))
-                .firstName(registerStudentRequest.getFirstName())
-                .lastName(registerStudentRequest.getLastName())
-                .email(registerStudentRequest.getEmail())
-                .phoneNumber(registerStudentRequest.getPhoneNumber())
-                .userStatus(UserStatus.INACTIVE)
+                .password(passwordEncoder.encode(registerUserRequest.getPassword()))
+                .firstName(registerUserRequest.getFirstName())
+                .lastName(registerUserRequest.getLastName())
+                .email(registerUserRequest.getEmail())
+                .phoneNumber(registerUserRequest.getPhoneNumber())
+                .userStatus(userStatus)
                 .build();
     }
 
@@ -79,6 +79,19 @@ public class UserService {
         return StudentUserDto.builder()
                 .email(savedUser.getEmail())
                 .userId(savedUser.getUserId())
+                .build();
+    }
+
+    public TeacherUserDto registerTeacherUser(RegisterUserRequest registerUserRequest) {
+        User newTeacherUser = createUser(registerUserRequest, UserStatus.ACTIVE);
+        newTeacherUser.setActivated(true);
+        userRepository.save(newTeacherUser);
+        authorityService.createTeacherAuthorities(newTeacherUser);
+        TeacherDto teacherDto = teacherService.registerTeacher(newTeacherUser);
+
+        return TeacherUserDto.builder()
+                .userId(newTeacherUser.getUserId())
+                .email(teacherDto.getEmail())
                 .build();
     }
 }

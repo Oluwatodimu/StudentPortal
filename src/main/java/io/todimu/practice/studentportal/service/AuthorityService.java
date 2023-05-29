@@ -24,4 +24,11 @@ public class AuthorityService {
         authorities.forEach(authority -> authority.setUser(user));
         authorityRepository.saveAll(authorities);
     }
+
+    public void createTeacherAuthorities(User user) {
+        Set<Authority> authorities = new HashSet<>();
+        authorities.add(Authority.builder().user(user).role(AuthoritiesConstants.TEACHER).build());
+        authorities.forEach(authority -> authority.setUser(user));
+        authorityRepository.saveAll(authorities);
+    }
 }
