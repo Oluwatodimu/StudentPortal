@@ -1,4 +1,4 @@
-package io.todimu.practice.studentportal.controller;
+package io.todimu.practice.studentportal.controller.controller;
 
 import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.request.RegisterStudentRequest;
@@ -26,13 +26,13 @@ public class StudentController {
     private static final Integer PAGE_SIZE = 10;
 
 
-    @PostMapping(value = "/register")
-    public ResponseEntity<StudentDto> register(@RequestBody RegisterStudentRequest request) {
-        // todo run controller advice for handling errors
-        log.info("Creating new student");
-        StudentDto studentDto = studentService.registerStudent(request);
-        return new ResponseEntity<>(studentDto, HttpStatus.CREATED);
-    }
+//    @PostMapping(value = "/register")
+//    public ResponseEntity<StudentDto> register(@RequestBody RegisterStudentRequest request) {
+//        // todo run controller advice for handling errors
+//        log.info("Creating new student");
+//        StudentDto studentDto = studentService.registerStudent(request);
+//        return new ResponseEntity<>(studentDto, HttpStatus.CREATED);
+//    }
 
     @GetMapping(value = "")
     public ResponseEntity<Page<StudentDto>> getAllStudents(@RequestParam(required = false) Integer pageNumber,
