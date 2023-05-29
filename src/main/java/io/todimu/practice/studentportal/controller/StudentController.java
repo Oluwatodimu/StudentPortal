@@ -1,7 +1,7 @@
 package io.todimu.practice.studentportal.controller;
 
 import io.todimu.practice.studentportal.dto.StudentDto;
-import io.todimu.practice.studentportal.dto.request.CreateStudentRequest;
+import io.todimu.practice.studentportal.dto.request.RegisterStudentRequest;
 import io.todimu.practice.studentportal.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class StudentController {
 
 
     @PostMapping(value = "/register")
-    public ResponseEntity<StudentDto> register(@RequestBody CreateStudentRequest request) {
+    public ResponseEntity<StudentDto> register(@RequestBody RegisterStudentRequest request) {
         // todo run controller advice for handling errors
         log.info("Creating new student");
         StudentDto studentDto = studentService.registerStudent(request);

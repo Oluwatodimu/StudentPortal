@@ -4,7 +4,7 @@ import io.todimu.practice.studentportal.dto.CourseDto;
 import io.todimu.practice.studentportal.dto.CourseRegistrationDto;
 import io.todimu.practice.studentportal.dto.RegisterCourseRequest;
 import io.todimu.practice.studentportal.dto.StudentDto;
-import io.todimu.practice.studentportal.dto.request.CreateStudentRequest;
+import io.todimu.practice.studentportal.dto.request.RegisterStudentRequest;
 import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import io.todimu.practice.studentportal.mapper.StudentMapper;
 import io.todimu.practice.studentportal.model.CourseRegistration;
@@ -39,7 +39,7 @@ public class StudentServiceImpl implements StudentService {
     private static final int BOOKING_CODE_LENGTH = 7;
 
     @Override
-    public StudentDto registerStudent(CreateStudentRequest request) {
+    public StudentDto registerStudent(RegisterStudentRequest request) {
         StudentDto studentDto = generateStudentDto(request);
         studentDto = saveStudentDto(studentDto);
         return studentDto;
@@ -119,7 +119,7 @@ public class StudentServiceImpl implements StudentService {
         return toDto(student);
     }
 
-    private StudentDto generateStudentDto(CreateStudentRequest request) {
+    private StudentDto generateStudentDto(RegisterStudentRequest request) {
         return StudentDto.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
