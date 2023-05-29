@@ -7,7 +7,6 @@ import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.request.CreateStudentRequest;
 import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import io.todimu.practice.studentportal.mapper.StudentMapper;
-import io.todimu.practice.studentportal.model.Course;
 import io.todimu.practice.studentportal.model.CourseRegistration;
 import io.todimu.practice.studentportal.model.Student;
 import io.todimu.practice.studentportal.repository.StudentRepository;
