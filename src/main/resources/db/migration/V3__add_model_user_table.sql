@@ -9,7 +9,7 @@ CREATE TABLE user (
     image_url VARCHAR(256),
     activated BIT NOT NULL,
     password_reset_date DATETIME,
-    user_status VARCHAR(15) NOT NULL UNIQUE,
+    user_status VARCHAR(15) NOT NULL,
     created_by VARCHAR(255),
     creation_date DATETIME,
     last_modified_by VARCHAR(255),
