@@ -54,4 +54,15 @@ public class UserService {
                 .userStatus(UserStatus.INACTIVE)
                 .build();
     }
+
+    public void activateStudentUser() {
+        //todo create a redis db to hold the activation key
+
+        // set activation key in redis db, using user_id as key pair
+        // find by that activation key
+        // once found, update user to activated and active
+
+
+
+    }
 }
