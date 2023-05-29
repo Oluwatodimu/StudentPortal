@@ -1,11 +1,15 @@
 package io.todimu.practice.studentportal.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.validation.constraints.Pattern;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterStudentRequest {
 
     @NonNull private String firstName;

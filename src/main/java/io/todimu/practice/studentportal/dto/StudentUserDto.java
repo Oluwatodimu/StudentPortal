@@ -16,4 +16,5 @@ public class StudentUserDto {
     private UUID userId;
     private String email;
     private String matricNUmber;
+    private String activationKey;
 }
