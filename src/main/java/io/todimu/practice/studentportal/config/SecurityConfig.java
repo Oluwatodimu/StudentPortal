@@ -18,7 +18,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable();
         httpSecurity.authorizeRequests()
-                .requestMatchers("/api/v1/student/**").permitAll();
+                .requestMatchers("/api/v1/**").permitAll()
+        ;
+
         return httpSecurity.build();
     }
 
@@ -26,5 +28,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
