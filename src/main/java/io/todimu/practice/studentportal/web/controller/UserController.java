@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
 import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
 import io.todimu.practice.studentportal.dto.request.LoginRequestDto;
 import io.todimu.practice.studentportal.security.jwt.JwtToken;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -31,7 +33,9 @@ public class UserController {
     }
 
     @GetMapping("/say-hi")
+    @PreAuthorize(MethodAuthorityConstants.TEACHER_ROLE)
     public String asyHi() {
+        System.out.println("nice");
         return "hi";
     }
 }
