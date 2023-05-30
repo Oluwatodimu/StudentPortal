@@ -11,7 +11,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentDto {
-//todo do email validation
 
     private String firstName;
     private String lastName;

@@ -1,5 +1,5 @@
 CREATE TABLE `course` (
-    `id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `id` BINARY(16) NOT NULL UNIQUE,
     `created_by` VARCHAR(255),
     `creation_date` DATETIME,
     `last_modified_by` VARCHAR(255),
@@ -12,7 +12,7 @@ CREATE TABLE `course` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `student` (
-    `id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `id` BINARY(16) NOT  NULL UNIQUE,
     `created_by` VARCHAR(255),
     `creation_date` DATETIME,
     `last_modified_by` VARCHAR(255),
@@ -26,7 +26,7 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `teacher` (
-    `id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `id` BINARY(16) NOT  NULL UNIQUE,
     `created_by` VARCHAR(255),
     `creation_date` DATETIME,
     `last_modified_by` VARCHAR(255),
@@ -35,12 +35,13 @@ CREATE TABLE `teacher` (
     `last_name` VARCHAR(64) NOT NULL,
     `email` VARCHAR(64) NOT NULL UNIQUE,
     `phone_number` VARCHAR(64) NOT NULL UNIQUE,
+    `teacher_status` VARCHAR(64) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `course_grade` (
-    `id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `id` BINARY(16) NOT NULL UNIQUE,
     `created_by` VARCHAR(255),
     `creation_date` DATETIME,
     `last_modified_by` VARCHAR(255),
@@ -52,7 +53,7 @@ CREATE TABLE `course_grade` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `semester` (
-    `id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `id` BINARY(16) NOT NULL UNIQUE,
     `created_by` VARCHAR(255),
     `creation_date` DATETIME,
     `last_modified_by` VARCHAR(255),
@@ -65,7 +66,7 @@ CREATE TABLE `semester` (
 
 
 CREATE TABLE `course_teacher` (
-    `id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `id` BINARY(16) NOT NULL UNIQUE,
     `created_by` VARCHAR(255),
     `creation_date` DATETIME,
     `last_modified_by` VARCHAR(255),
@@ -78,7 +79,7 @@ CREATE TABLE `course_teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `course_registration` (
-    `id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `id` BINARY(16) NOT NULL UNIQUE,
     `created_by` VARCHAR(255),
     `creation_date` DATETIME,
     `last_modified_by` VARCHAR(255),

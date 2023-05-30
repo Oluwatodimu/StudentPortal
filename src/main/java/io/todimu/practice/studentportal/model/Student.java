@@ -3,15 +3,16 @@ package io.todimu.practice.studentportal.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.Set;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "student")
-@EqualsAndHashCode(callSuper = true)
 public class Student extends BaseEntity {
 
     @Column(name = "first_name")
@@ -20,7 +21,7 @@ public class Student extends BaseEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", updatable = false)
     private String email;
 
     @Column(name = "phone_number")
@@ -30,7 +31,7 @@ public class Student extends BaseEntity {
     @Column(name = "student_status")
     private StudentStatus studentStatus;
 
-    @Column(name = "matric_number")
+    @Column(name = "matric_number", updatable = false)
     private String matricNumber;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)

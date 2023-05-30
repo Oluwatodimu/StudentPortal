@@ -1,24 +1,35 @@
 package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.TeacherDto;
-import io.todimu.practice.studentportal.dto.request.CreateTeacherRequest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import io.todimu.practice.studentportal.enumeration.TeacherStatus;
+import io.todimu.practice.studentportal.mapper.TeacherMapper;
+import io.todimu.practice.studentportal.model.Teacher;
+import io.todimu.practice.studentportal.model.User;
+import io.todimu.practice.studentportal.repository.TeacherRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public interface TeacherService {
+@Service
+@RequiredArgsConstructor
+public class TeacherService {
 
-    TeacherDto registerTeacher(CreateTeacherRequest createTeacherRequest);
+    private final TeacherRepository teacherRepository;
 
-    TeacherDto updateTeacherInfo(TeacherDto teacherDto);
+    private final TeacherMapper teacherMapper;
 
-    Page<TeacherDto> getAllTeachers(Pageable pageable);
+    public TeacherDto registerTeacher(User user) {
+        Teacher teacher = createTeacher(user);
+        teacher = teacherRepository.save(teacher);
+        return teacherMapper.toDto(teacher);
+    }
 
-    TeacherDto findTeacherById(Long id);
-
-    TeacherDto findTeacherByEmail(String email);
-
-    TeacherDto findTeacherByPhoneNumber(String phoneNumber);
-
-    TeacherDto findTeacherByFirstAndLastName(String firstName, String lastName);
-
+    private Teacher createTeacher(User user) {
+        return Teacher.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
+                .teacherStatus(TeacherStatus.ACTIVE)
+                .build();
+    }
 }

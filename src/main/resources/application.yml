@@ -6,11 +6,12 @@ spring:
     name: student-portal
 
   jackson:
-    default-property-inclusion: non_null
+    default-property-inclusion: non_default
+
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/student_portal?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/student_management_system?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: root
     password: Zawarudo12!@
     hikari:
@@ -21,3 +22,24 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security:
+#          web:
+#            FilterChainProxy: DEBUG
+
+redis:
+  host: localhost
+  port: 6379
+  password:
+  database: 0
+  timeout: 1000
+  timeToLive: 15
