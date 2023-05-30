@@ -16,8 +16,10 @@ public class RegisterUserRequest {
 
     @NonNull private String lastName;
 
+    @Pattern(regexp = "^\\d{13}$")
     @NonNull private String phoneNumber;
 
+    @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
     @NonNull private String email;
 
     @Pattern(regexp = "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$")

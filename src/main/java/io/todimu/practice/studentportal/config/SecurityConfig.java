@@ -1,5 +1,7 @@
 package io.todimu.practice.studentportal.config;
 
+import io.todimu.practice.studentportal.security.filter.JwtValidationFilter;
+import io.todimu.practice.studentportal.security.jwt.TokenProvider;
 import io.todimu.practice.studentportal.utils.AuthoritiesConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Collections;
@@ -19,6 +22,8 @@ import java.util.List;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final TokenProvider tokenProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -38,8 +43,16 @@ public class SecurityConfig {
                             return configuration;
                         })
                 .and()
+                .addFilterBefore(new JwtValidationFilter(tokenProvider), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/**").permitAll();
+                .requestMatchers("/api/v1/student/register").permitAll()
+                .requestMatchers("/api/v1/student/activate").permitAll()
+                .requestMatchers("/api/v1/teacher/register").authenticated()
+                .requestMatchers("/api/v1/user/authenticate").permitAll()
+                .requestMatchers("/api/v1/user/say-hi").authenticated()
+
+        ;
+
 
         return httpSecurity.build();
     }

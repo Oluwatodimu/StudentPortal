@@ -1,6 +1,6 @@
-package io.todimu.practice.studentportal.controller.controller;
+package io.todimu.practice.studentportal.web.controller;
 
-import io.todimu.practice.studentportal.controller.BaseResponse.BaseResponse;
+import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
 import io.todimu.practice.studentportal.dto.StudentUserDto;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.service.UserService;
