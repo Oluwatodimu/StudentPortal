@@ -1,13 +1,20 @@
 package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.*;
+import io.todimu.practice.studentportal.dto.request.LoginRequestDto;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.enumeration.UserStatus;
 import io.todimu.practice.studentportal.model.User;
 import io.todimu.practice.studentportal.repository.UserRepository;
+import io.todimu.practice.studentportal.security.jwt.JwtToken;
+import io.todimu.practice.studentportal.security.jwt.TokenProvider;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +24,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    private final TokenProvider tokenProvider;
 
     private final UserRepository userRepository;
 
@@ -29,6 +38,8 @@ public class UserService {
     private final AuthorityService authorityService;
 
     private final ActivationKeyService activationKeyService;
+
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @Transactional
     public StudentUserDto registerStudentUser(RegisterUserRequest registerUserRequest) {
@@ -93,5 +104,16 @@ public class UserService {
                 .userId(newTeacherUser.getUserId())
                 .email(teacherDto.getEmail())
                 .build();
+    }
+
+    public JwtToken authenticateUser(LoginRequestDto loginRequestDto) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                loginRequestDto.getUsername(),
+                loginRequestDto.getPassword()
+        );
+
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return tokenProvider.createToken(authentication);
     }
 }
