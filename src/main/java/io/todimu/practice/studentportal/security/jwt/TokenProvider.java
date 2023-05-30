@@ -28,7 +28,7 @@ public class TokenProvider {
                     .claim("username", authentication.getName())
                     .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date((new Date()).getTime() + 120000))
+                    .setExpiration(new Date((new Date()).getTime() + 4000000))
                     .signWith(secretKey).
                     compact();
 
