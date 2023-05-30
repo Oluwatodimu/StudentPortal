@@ -93,6 +93,7 @@ public class UserService {
                 .build();
     }
 
+    @Transactional
     public TeacherUserDto registerTeacherUser(RegisterUserRequest registerUserRequest) {
         User newTeacherUser = createUser(registerUserRequest, UserStatus.ACTIVE);
         newTeacherUser.setActivated(true);

@@ -25,6 +25,7 @@ public class AuthorityService {
         authorityRepository.saveAll(authorities);
     }
 
+    @Transactional
     public void createTeacherAuthorities(User user) {
         Set<Authority> authorities = new HashSet<>();
         authorities.add(Authority.builder().user(user).role(AuthoritiesConstants.TEACHER).build());
