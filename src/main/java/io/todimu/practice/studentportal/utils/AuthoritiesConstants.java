@@ -10,5 +10,7 @@ public class AuthoritiesConstants {
 
     public static final String AUTHORITIES_HEADER = "Authorization";
 
+    public static final String JWT_KEY = "jxgEQeXHuPq8VdbyYFNkANdudQ53YUn4";
+
     public AuthoritiesConstants() {}
 }
