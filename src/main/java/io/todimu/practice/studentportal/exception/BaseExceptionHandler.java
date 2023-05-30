@@ -43,15 +43,12 @@ public class BaseExceptionHandler {
         return new BaseResponse(null, exception.getMessage(), true);
     }
 
-    @ExceptionHandler({Exception.class, InternalError.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler({Exception.class, InternalError.class})
     public BaseResponse handleAllExceptions(Exception ex) {
         ex.printStackTrace();
         log.error(ex.getMessage(), ex.getLocalizedMessage());
         return new BaseResponse(null, (ex.getMessage() != null) ? ex.getMessage() : "Oops something went wrong !!!", true);
 
     }
-
-
-
 }
