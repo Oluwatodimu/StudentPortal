@@ -1,4 +1,4 @@
-package io.todimu.practice.studentportal.controller.BaseResponse;
+package io.todimu.practice.studentportal.web.BaseResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

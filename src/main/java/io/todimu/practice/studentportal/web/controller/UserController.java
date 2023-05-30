@@ -1,6 +1,6 @@
-package io.todimu.practice.studentportal.controller.controller;
+package io.todimu.practice.studentportal.web.controller;
 
-import io.todimu.practice.studentportal.controller.BaseResponse.BaseResponse;
+import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
 import io.todimu.practice.studentportal.dto.request.LoginRequestDto;
 import io.todimu.practice.studentportal.security.jwt.JwtToken;
 import io.todimu.practice.studentportal.service.UserService;
@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -31,5 +28,10 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AuthoritiesConstants.AUTHORITIES_HEADER, "Bearer " + jwtToken.getAuthToken());
         return new ResponseEntity<>(new BaseResponse(jwtToken, ResponseConstants.SUCCESS, false), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/say-hi")
+    public String asyHi() {
+        return "hi";
     }
 }
