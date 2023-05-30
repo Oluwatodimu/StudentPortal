@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -34,7 +35,8 @@ public class UserController {
 
     @GetMapping("/say-hi")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_ROLE)
-    public String asyHi() {
+    public String asyHi(Authentication authentication) {
+        String username = authentication.getName();
         System.out.println("nice");
         return "hi";
     }
