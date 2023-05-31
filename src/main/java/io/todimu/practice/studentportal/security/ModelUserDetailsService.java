@@ -26,7 +26,7 @@ public class ModelUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(@NotNull String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username.toLowerCase(Locale.ENGLISH)) // username is email in this case
+        return userRepository.findByEmailIgnoreCase(username.toLowerCase(Locale.ENGLISH)) // username is email in this case
                 .map(this::createSpringSecurityUser)
                 .orElseThrow(() -> new UsernameNotFoundException("email not found in the database"));
     }
