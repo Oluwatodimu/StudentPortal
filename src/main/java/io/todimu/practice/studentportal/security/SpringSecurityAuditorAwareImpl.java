@@ -30,7 +30,7 @@ public class SpringSecurityAuditorAwareImpl implements AuditorAware<String> {
             return Optional.of(ANONYMOUS_USER);
         }
 
-        String userId = userRepository.findByEmail(principal).get().getUserId().toString();
+        String userId = userRepository.findByEmailIgnoreCase(principal).get().getUserId().toString();
         return Optional.of(userId);
     }
 }
