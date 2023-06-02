@@ -2,7 +2,7 @@ package io.todimu.practice.studentportal.web.controller;
 
 import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
 import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
-import io.todimu.practice.studentportal.dto.request.LoginRequestDto;
+import io.todimu.practice.studentportal.dto.request.LoginRequest;
 import io.todimu.practice.studentportal.security.jwt.JwtToken;
 import io.todimu.practice.studentportal.service.UserService;
 import io.todimu.practice.studentportal.utils.AuthoritiesConstants;
@@ -25,9 +25,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<BaseResponse> authenticateUser(@RequestBody LoginRequestDto loginRequestDto) {
-        log.info("authenticating user : {}", loginRequestDto.getUsername());
-        JwtToken jwtToken = userService.authenticateUser(loginRequestDto);
+    public ResponseEntity<BaseResponse> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        log.info("authenticating user : {}", loginRequest.getUsername());
+        JwtToken jwtToken = userService.authenticateUser(loginRequest);
         HttpHeaders headers = new HttpHeaders();
         headers.add(AuthoritiesConstants.AUTHORITIES_HEADER, "Bearer " + jwtToken.getAuthToken());
         return new ResponseEntity<>(new BaseResponse(jwtToken, ResponseConstants.SUCCESS, false), headers, HttpStatus.OK);

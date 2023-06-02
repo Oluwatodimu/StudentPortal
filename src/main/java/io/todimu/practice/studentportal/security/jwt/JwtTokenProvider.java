@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class TokenProvider {
+public class JwtTokenProvider {
 
     public JwtToken createToken(Authentication authentication) {
         JwtToken token = null;
