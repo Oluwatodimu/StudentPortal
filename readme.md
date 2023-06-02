@@ -9,7 +9,7 @@ that has the following functionalities:
 4. ability for students to register for courses.
 5. ability to view student's gpa
 
-I broke the project down into three main parts:
+I broke the project down into four main parts:
 1. securing the application with authentication and authorization.
 2. building the business logic.
 3. writing unit and integration tests
