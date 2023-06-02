@@ -1,11 +1,12 @@
 package io.todimu.practice.studentportal.security.filter;
 
-import io.todimu.practice.studentportal.security.jwt.TokenProvider;
+import io.todimu.practice.studentportal.security.jwt.JwtTokenProvider;
 import io.todimu.practice.studentportal.utils.AuthoritiesConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,13 +19,14 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtValidationFilter extends OncePerRequestFilter {
 
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+                                                   @NonNull FilterChain filterChain) throws ServletException, IOException {
         String jwtToken = resolveToken(request);
-        if (StringUtils.hasText(jwtToken) && this.tokenProvider.validateToken(jwtToken)) {
-            Authentication authentication = this.tokenProvider.getAuthentication(jwtToken);
+        if (StringUtils.hasText(jwtToken) && this.jwtTokenProvider.validateToken(jwtToken)) {
+            Authentication authentication = this.jwtTokenProvider.getAuthentication(jwtToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

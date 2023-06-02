@@ -1,7 +1,7 @@
 package io.todimu.practice.studentportal.config;
 
 import io.todimu.practice.studentportal.security.filter.JwtValidationFilter;
-import io.todimu.practice.studentportal.security.jwt.TokenProvider;
+import io.todimu.practice.studentportal.security.jwt.JwtTokenProvider;
 import io.todimu.practice.studentportal.utils.AuthoritiesConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -43,7 +43,7 @@ public class SecurityConfig {
                             return configuration;
                         })
                 .and()
-                .addFilterBefore(new JwtValidationFilter(tokenProvider), BasicAuthenticationFilter.class)
+                .addFilterBefore(new JwtValidationFilter(jwtTokenProvider), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/student/register").permitAll()
                 .requestMatchers("/api/v1/student/activate").permitAll()

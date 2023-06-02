@@ -1,13 +1,13 @@
 package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.*;
-import io.todimu.practice.studentportal.dto.request.LoginRequestDto;
+import io.todimu.practice.studentportal.dto.request.LoginRequest;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.enumeration.UserStatus;
 import io.todimu.practice.studentportal.model.User;
 import io.todimu.practice.studentportal.repository.UserRepository;
 import io.todimu.practice.studentportal.security.jwt.JwtToken;
-import io.todimu.practice.studentportal.security.jwt.TokenProvider;
+import io.todimu.practice.studentportal.security.jwt.JwtTokenProvider;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,7 +25,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     private final UserRepository userRepository;
 
@@ -107,14 +107,14 @@ public class UserService {
                 .build();
     }
 
-    public JwtToken authenticateUser(LoginRequestDto loginRequestDto) {
+    public JwtToken authenticateUser(LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                loginRequestDto.getUsername(),
-                loginRequestDto.getPassword()
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
         );
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return tokenProvider.createToken(authentication);
+        return jwtTokenProvider.createToken(authentication);
     }
 }
