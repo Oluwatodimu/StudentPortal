@@ -12,7 +12,8 @@ that has the following functionalities:
 I broke the project down into three main parts:
 1. securing the application with authentication and authorization.
 2. building the business logic.
-3. containerizing and deploying the application.
+3. writing unit and integration tests
+4. containerizing and deploying the application.
 
 So far, I have completed only the first part which I will illustrate the 
 workflow:
@@ -46,7 +47,7 @@ Now you are all set, let's see how to use the applications
 url: `POST {{base_url}}/api/v1/student/register`
 
 request
-```agsl
+```json
 {
     "firstName": "Victor",
     "lastName": "Osimehen",
@@ -56,7 +57,7 @@ request
 }
 ```
 response
-```agsl
+```json
 {
     "data": {
         "userId": "29556139-f8a7-45fc-9fff-a74740275717",
@@ -78,7 +79,7 @@ params:
 > `userId` 29556139-f8a7-45fc-9fff-a74740275717
 
 response
-```agsl
+```json
 {
     "data": {
         "userId": "29556139-f8a7-45fc-9fff-a74740275717",
@@ -94,18 +95,17 @@ response
 url: `POST {{base_url}}/api/v1/user/authenticate`
 
 request
-```agsl
+```json
 {
     "username": "mosesvictor@gmail.com",
     "password": "Password123$"
 }
 ```
 response
-```agsl
+```json
 {
     "data": {
-        "authToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdHVkZW50LWFwcCIsInN1YiI6Imp3dC10b2tlbiIsInVzZXJuYW1lIjoibW9zZXN2aWN0b3JAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX1N
-                        UVURFTlQiLCJpYXQiOjE2ODU1NjA1OTcsImV4cCI6MTY4NTU2NDU5N30.cLlp5XVhrtBx1nGTJ-PdY8X_Fjy9saYGkioCmS7BBRw"
+        "authToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdHVkZW50LWFwcCIsInN1YiI6Imp3dC10b2tlbiIsInVzZXJuYW1lIjoibW9zZXN2aWN0b3JAZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX1NUVURFTlQiLCJpYXQiOjE2ODU1NjA1OTcsImV4cCI6MTY4NTU2NDU5N30.cLlp5XVhrtBx1nGTJ-PdY8X_Fjy9saYGkioCmS7BBRw"
     },
     "message": "successful",
     "error": false
@@ -113,7 +113,7 @@ response
 ```
 validating the authToken on `jwt.io` we have the following payload
 
-```agsl
+```json
 {
   "iss": "student-app",
   "sub": "jwt-token",

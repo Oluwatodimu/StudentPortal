@@ -11,8 +11,4 @@ public class StudentPortalApplication {
     public static void main(String[] args) {
         SpringApplication.run(StudentPortalApplication.class, args);
     }
-
-    // todo make the db auditing feature work
-    // todo @Controller advice for handing exceptions
-
 }
