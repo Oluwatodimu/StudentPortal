@@ -6,6 +6,7 @@ import io.todimu.practice.studentportal.mapper.StudentMapper;
 import io.todimu.practice.studentportal.model.Student;
 import io.todimu.practice.studentportal.model.User;
 import io.todimu.practice.studentportal.repository.StudentRepository;
+import io.todimu.practice.studentportal.utils.ValueGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,19 +38,8 @@ public class StudentService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
-                .matricNumber(generateMatricNumber())
+                .matricNumber(ValueGenerator.generateMatricNumber())
                 .studentStatus(StudentStatus.ACTIVE)
                 .build();
-    }
-
-    private String generateMatricNumber() {
-        String chars = "0123456789";
-        Random randomChar = new Random();
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (int i = 0; i < MATRIC_NUMBER_LENGTH; i++) {
-            stringBuilder.append(chars.charAt(randomChar.nextInt(chars.length())));
-        }
-        return stringBuilder.toString();
     }
 }
