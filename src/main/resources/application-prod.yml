@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: student-portal
+    name: student-management-system
 
   jackson:
     default-property-inclusion: non_null

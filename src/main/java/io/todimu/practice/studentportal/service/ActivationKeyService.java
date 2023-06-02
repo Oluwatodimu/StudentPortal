@@ -2,7 +2,7 @@ package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.ActivationKey;
 import io.todimu.practice.studentportal.repository.ActivationKeyRepository;
-import io.todimu.practice.studentportal.utils.KeyGenerator;
+import io.todimu.practice.studentportal.utils.ValueGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class ActivationKeyService {
     private final ActivationKeyRepository activationKeyRepository;
 
     public ActivationKey createActivationKey(String userId) {
-        String activationKey = KeyGenerator.random();
+        String activationKey = ValueGenerator.generateActivationKey();
 
         ActivationKey keyJson = ActivationKey.builder()
                 .activationKey(activationKey)
