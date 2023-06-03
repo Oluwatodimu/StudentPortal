@@ -114,7 +114,6 @@ public class UserService {
         );
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(token);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
         return jwtTokenProvider.createToken(authentication);
     }
 }
