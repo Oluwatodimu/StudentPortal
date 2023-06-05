@@ -10,7 +10,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class CourseGrade extends BaseEntity {
 
+    @Column(name = "grade")
+    private Float grade;
+
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(name = "course_registration_id")
     private CourseRegistration  courseRegistration;
 }

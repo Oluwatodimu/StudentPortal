@@ -31,10 +31,10 @@ public class Student extends BaseEntity {
     @Column(name = "student_status")
     private StudentStatus studentStatus;
 
-    @Column(name = "matric_number", updatable = false)
+    @Column(name = "student_id", updatable = false)
     private String matricNumber;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "student", allowSetters = true)
     private Set<CourseRegistration> courseRegistrations;
 }

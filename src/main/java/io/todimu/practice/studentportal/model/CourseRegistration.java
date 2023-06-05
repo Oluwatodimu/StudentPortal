@@ -14,15 +14,18 @@ public class CourseRegistration extends BaseEntity {
     @Column(name = "status")
     private CourseRegistrationStatus registrationStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "student_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "matric_number")
     private Student student;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "semester_id")
     private Semester semester;
+
+    @OneToOne(mappedBy = "course_registration", cascade = CascadeType.ALL)
+    private CourseGrade courseGrade;
 }
