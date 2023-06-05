@@ -1,6 +1,8 @@
 package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.StudentDto;
+import io.todimu.practice.studentportal.dto.request.GetStudentGradesResponse;
+import io.todimu.practice.studentportal.dto.request.StudentGrades;
 import io.todimu.practice.studentportal.dto.request.UpdateStudentRequest;
 import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import io.todimu.practice.studentportal.exception.UserNotFoundException;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,7 +36,6 @@ public class StudentService {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
 
     public StudentDto registerStudent(User user) {
         Student student = createStudent(user);
@@ -107,5 +109,23 @@ public class StudentService {
                 .collect(Collectors.toSet());
     }
 
-    // todo create custom annotations
+    public GetStudentGradesResponse getStudentGrades(String matricNumber) {
+        List<StudentGrades> studentGrades = new ArrayList<>();
+        Student student = findStudentDboByMatricNumber(matricNumber);
+        Set<CourseRegistration> courseRegistrations = student.getCourseRegistrations();
+        courseRegistrations.forEach(courseRegistration -> {
+                    StudentGrades grades = StudentGrades.builder()
+                            .courseName(courseRegistration.getCourse().getName())
+                            .courseCode(courseRegistration.getCourse().getCode())
+                            .studentGrade(courseRegistration.getCourseGrade().getGrade())
+                            .build();
+                    studentGrades.add(grades);
+                });
+
+        return GetStudentGradesResponse.builder()
+                .studentName(student.getFirstName() + " " + student.getLastName())
+                .matricNumber(student.getMatricNumber())
+                .studentGradesList(studentGrades)
+                .build();
+    }
 }

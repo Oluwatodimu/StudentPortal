@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -15,4 +16,6 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
     List<CourseRegistration> findAllByStudent(Student student);
 
     List<CourseRegistration> findAllByCourse(Course course);
+
+    Optional<CourseRegistration> findByCourseAndStudent(Course course, Student student);
 }

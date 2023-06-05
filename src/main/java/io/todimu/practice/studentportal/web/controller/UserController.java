@@ -33,12 +33,4 @@ public class UserController {
         headers.add(AuthoritiesConstants.AUTHORITIES_HEADER, "Bearer " + jwtToken.getAuthToken());
         return new ResponseEntity<>(new BaseResponse(jwtToken, ResponseConstants.SUCCESS, false), headers, HttpStatus.OK);
     }
-
-    @GetMapping("/say-hi")
-    @PreAuthorize(MethodAuthorityConstants.TEACHER_ROLE)
-    public String asyHi(Authentication authentication) {
-        String username = authentication.getName();
-        System.out.println("nice");
-        return "hi";
-    }
 }

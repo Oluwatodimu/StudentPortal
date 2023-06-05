@@ -19,4 +19,8 @@ public class CourseGradeService {
                 .build();
         courseGradeRepository.save(courseGrade);
     }
+
+    public CourseGrade updateStudentGrade() {
+        return null;
+    }
 }
