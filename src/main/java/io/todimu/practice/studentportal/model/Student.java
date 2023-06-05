@@ -1,21 +1,61 @@
 package io.todimu.practice.studentportal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
+@Builder
+@ToString(exclude = "courseRegistrations")
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "student")
-public class Student extends Human {
+public class Student extends BaseEntity {
 
-    @Column(name = "student_id")
-    private String studentId;
+    @Column(name = "first_name")
+    private String firstName;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email", updatable = false)
+    private String email;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "student_status")
+    private StudentStatus studentStatus;
+
+    @Column(name = "matric_number", updatable = false)
+    private String matricNumber;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "student", allowSetters = true)
-    private Set<Course> registeredCourses = new HashSet<>();
+    private Set<CourseRegistration> courseRegistrations;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, email, phoneNumber, studentStatus, matricNumber);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(firstName, student.firstName) &&
+                Objects.equals(lastName, student.lastName) &&
+                Objects.equals(email, student.email) &&
+                Objects.equals(phoneNumber, student.phoneNumber) &&
+                studentStatus == student.studentStatus &&
+                Objects.equals(matricNumber, student.matricNumber);
+    }
 }
