@@ -33,7 +33,7 @@ public class CourseRegistrationService {
         List<Course> courseList = getCoursesFromRequest(registrationRequest.getCourseCodes());
         ensureCoursesAreNotRegisteredMoreThanOnce(courseList, student);
 
-        List<UUID> courseRegistrationIds = courseList.stream()
+        return courseList.stream()
                 .map(course -> {
                     CourseRegistration courseRegistration = createCourseRegistrationDbo(student, course);
                     courseRegistrationRepository.save(courseRegistration);
@@ -41,8 +41,6 @@ public class CourseRegistrationService {
                     return courseRegistration.getId();
                 })
                 .toList();
-
-        return courseRegistrationIds;
     }
 
     private List<Course> getCoursesFromRequest(Set<String> courseCodes) {
@@ -53,7 +51,7 @@ public class CourseRegistrationService {
 
     private void ensureCoursesAreNotRegisteredMoreThanOnce(List<Course> courseList, Student student) {
         List<CourseRegistration> courseRegistrations = courseRegistrationRepository.findAllByStudent(student);
-        List<Course> registeredCourses = getCoursesById(courseRegistrations);
+        List<Course> registeredCourses = courseService.getCoursesById(courseRegistrations);
         boolean hasIntersection = hasIntersection(courseList, registeredCourses);
 
         if (hasIntersection) {
@@ -73,13 +71,6 @@ public class CourseRegistrationService {
         }
         return hasIntersection;
     }
-
-    private List<Course> getCoursesById(List<CourseRegistration> courseRegistrations) {
-        return courseRegistrations.stream()
-                .map(courseRegistration -> courseService.findCourseById(courseRegistration.getCourse().getId()))
-                .collect(Collectors.toList());
-    }
-
 
     public CourseRegistration createCourseRegistrationDbo(Student student, Course course) {
         return CourseRegistration.builder()

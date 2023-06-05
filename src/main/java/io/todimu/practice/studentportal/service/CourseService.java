@@ -6,6 +6,7 @@ import io.todimu.practice.studentportal.dto.request.CreateCourseRequest;
 import io.todimu.practice.studentportal.exception.CourseNotFoundException;
 import io.todimu.practice.studentportal.mapper.CourseMapper;
 import io.todimu.practice.studentportal.model.Course;
+import io.todimu.practice.studentportal.model.CourseRegistration;
 import io.todimu.practice.studentportal.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,9 +56,14 @@ public class CourseService {
                 .orElseThrow(() -> new CourseNotFoundException("course not found"));
     }
 
+    public List<Course> getCoursesById(List<CourseRegistration> courseRegistrations) {
+        return courseRegistrations.stream()
+                .map(courseRegistration -> findCourseById(courseRegistration.getCourse().getId()))
+                .collect(Collectors.toList());
+    }
+
     public Course findCourseById(UUID id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException("course not found"));
     }
-
 }

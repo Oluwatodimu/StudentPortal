@@ -19,13 +19,13 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/course/registration")
+@RequestMapping(value = "/api/v1/course-registration")
 public class CourseRegistrationController {
 
     private final CourseRegistrationService courseRegistrationService;
 
     @PostMapping
-    @PreAuthorize(MethodAuthorityConstants.STUDENT_ROLE)
+    @PreAuthorize(MethodAuthorityConstants.STUDENT_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> registerCourses(@RequestBody @Validated CourseRegistrationRequest registrationRequest) {
         log.info("registering courses for student: {}",registrationRequest.getMatricNumber());
         List<UUID> uuidList = courseRegistrationService.registerCourses(registrationRequest);
