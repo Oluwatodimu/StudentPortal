@@ -44,7 +44,7 @@ public class BaseExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler({Exception.class, InternalError.class})
+    @ExceptionHandler({Exception.class, RuntimeException.class})
     public BaseResponse handleAllExceptions(Exception ex) {
         ex.printStackTrace();
         log.error(ex.getMessage(), ex.getLocalizedMessage());
