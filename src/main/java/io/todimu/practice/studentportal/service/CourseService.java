@@ -3,6 +3,7 @@ package io.todimu.practice.studentportal.service;
 import io.todimu.practice.studentportal.dto.CourseDto;
 import io.todimu.practice.studentportal.dto.request.CourseToCreate;
 import io.todimu.practice.studentportal.dto.request.CreateCourseRequest;
+import io.todimu.practice.studentportal.exception.CourseNotFoundException;
 import io.todimu.practice.studentportal.mapper.CourseMapper;
 import io.todimu.practice.studentportal.model.Course;
 import io.todimu.practice.studentportal.repository.CourseRepository;
@@ -47,5 +48,9 @@ public class CourseService {
                 .toList();
     }
 
+    public Course findCourseByCourseCode(String code) {
+        return courseRepository.findByCode(code)
+                .orElseThrow(() -> new CourseNotFoundException("course not found"));
+    }
 
 }

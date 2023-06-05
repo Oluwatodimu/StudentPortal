@@ -13,7 +13,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     Optional<Course> findByName(String name);
 
-    Optional<Course> findByCode(Long code);
+    Optional<Course> findByCode(String code);
 
     Page<Course> findAllByUnits(Pageable pageable, Integer units);
 
