@@ -3,7 +3,9 @@ package io.todimu.practice.studentportal.service;
 import io.todimu.practice.studentportal.dto.*;
 import io.todimu.practice.studentportal.dto.request.LoginRequest;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
+import io.todimu.practice.studentportal.dto.request.UpdateStudentRequest;
 import io.todimu.practice.studentportal.enumeration.UserStatus;
+import io.todimu.practice.studentportal.exception.UserNotFoundException;
 import io.todimu.practice.studentportal.model.User;
 import io.todimu.practice.studentportal.repository.UserRepository;
 import io.todimu.practice.studentportal.security.jwt.JwtToken;
@@ -116,4 +118,14 @@ public class UserService {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(token);
         return jwtTokenProvider.createToken(authentication);
     }
+
+//    @Transactional
+//    public void updateStudentUserDetails(UpdateStudentRequest updateRequest) {
+//        User studentUser = userRepository.findByEmailIgnoreCase(updateRequest.getEmail())
+//                .orElseThrow(() -> new UserNotFoundException("user not found"));
+//
+//        studentUser.setFirstName(updateRequest.getFirstName());
+//        studentUser.setLastName(updateRequest.getLastName());
+//        userRepository.save(studentUser);
+//    }
 }
