@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class RegisterCourseRequest {
+public class RegisterCoursesRequest {
 
     private String matricNumber;
     private List<Long> courseIdList;
