@@ -61,11 +61,11 @@ public class StudentController extends BaseController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 
-//    @PatchMapping(value = "/update")
-//    @PreAuthorize(MethodAuthorityConstants.STUDENT_ROLE)
-//    public ResponseEntity<BaseResponse> updateStudentDetails(@RequestBody UpdateStudentRequest updateRequest) {
-//        log.info("updating student with email : {}", updateRequest.getEmail());
-//        StudentDto response = studentService.updateStudentDetails(updateRequest);
-//        return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
-//    }
+    @PatchMapping(value = "/update")
+    @PreAuthorize(MethodAuthorityConstants.STUDENT_ROLE)
+    public ResponseEntity<BaseResponse> updateStudentDetails(@RequestBody UpdateStudentRequest updateRequest) {
+        log.info("updating student with email : {}", updateRequest.getEmail());
+        StudentDto response = studentService.updateStudentDetails(updateRequest);
+        return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
+    }
 }

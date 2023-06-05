@@ -25,9 +25,16 @@ public class StudentService {
 
     private final StudentMapper studentMapper;
 
+    private UserService userService;
+
     private final CourseService courseService;
 
     private final SemesterService semesterService;
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
 
     public StudentDto registerStudent(User user) {
         Student student = createStudent(user);
@@ -78,14 +85,16 @@ public class StudentService {
                         .collect(Collectors.toList()));
     }
 
-//    public StudentDto updateStudentDetails(UpdateStudentRequest updateRequest) {
-//        Student studentToUpdate = studentRepository.findByEmailIgnoreCase(updateRequest.getEmail())
-//                .orElseThrow(() -> new UserNotFoundException("user not found"));
-//
-//        studentToUpdate.setFirstName(updateRequest.getFirstName());
-//        studentToUpdate.setLastName(updateRequest.getLastName());
-//        userService.updateStudentUserDetails(updateRequest);
-//        studentRepository.save(studentToUpdate);
-//        return studentMapper.toDto(studentToUpdate);
-//    }
+    public StudentDto updateStudentDetails(UpdateStudentRequest updateRequest) {
+        Student studentToUpdate = studentRepository.findByEmailIgnoreCase(updateRequest.getEmail())
+                .orElseThrow(() -> new UserNotFoundException("user not found"));
+
+        studentToUpdate.setFirstName(updateRequest.getFirstName());
+        studentToUpdate.setLastName(updateRequest.getLastName());
+        userService.updateStudentUserDetails(updateRequest);
+        studentRepository.save(studentToUpdate);
+        return studentMapper.toDto(studentToUpdate);
+    }
+
+    // todo create custom annotations
 }

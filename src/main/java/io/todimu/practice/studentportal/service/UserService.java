@@ -10,13 +10,13 @@ import io.todimu.practice.studentportal.model.User;
 import io.todimu.practice.studentportal.repository.UserRepository;
 import io.todimu.practice.studentportal.security.jwt.JwtToken;
 import io.todimu.practice.studentportal.security.jwt.JwtTokenProvider;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +42,11 @@ public class UserService {
     private final ActivationKeyService activationKeyService;
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    @PostConstruct
+    public void init() {
+        studentService.setUserService(this);
+    }
 
     @Transactional
     public StudentUserDto registerStudentUser(RegisterUserRequest registerUserRequest) {
@@ -119,13 +124,13 @@ public class UserService {
         return jwtTokenProvider.createToken(authentication);
     }
 
-//    @Transactional
-//    public void updateStudentUserDetails(UpdateStudentRequest updateRequest) {
-//        User studentUser = userRepository.findByEmailIgnoreCase(updateRequest.getEmail())
-//                .orElseThrow(() -> new UserNotFoundException("user not found"));
-//
-//        studentUser.setFirstName(updateRequest.getFirstName());
-//        studentUser.setLastName(updateRequest.getLastName());
-//        userRepository.save(studentUser);
-//    }
+    @Transactional
+    public void updateStudentUserDetails(UpdateStudentRequest updateRequest) {
+        User studentUser = userRepository.findByEmailIgnoreCase(updateRequest.getEmail())
+                .orElseThrow(() -> new UserNotFoundException("user not found"));
+
+        studentUser.setFirstName(updateRequest.getFirstName());
+        studentUser.setLastName(updateRequest.getLastName());
+        userRepository.save(studentUser);
+    }
 }
