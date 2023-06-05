@@ -1,8 +1,6 @@
 package io.todimu.practice.studentportal.config;
 
-import io.todimu.practice.studentportal.repository.UserRepository;
 import io.todimu.practice.studentportal.security.SpringSecurityAuditorAwareImpl;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

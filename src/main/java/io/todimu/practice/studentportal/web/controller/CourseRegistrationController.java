@@ -1,6 +1,7 @@
 package io.todimu.practice.studentportal.web.controller;
 
 import io.todimu.practice.studentportal.dto.request.CourseRegistrationRequest;
+import io.todimu.practice.studentportal.dto.request.StudentsRegisteredForCourseResponse;
 import io.todimu.practice.studentportal.service.CourseRegistrationService;
 import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
@@ -32,5 +33,11 @@ public class CourseRegistrationController {
         return new ResponseEntity<>(new BaseResponse(uuidList, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);
     }
 
-
+    @GetMapping("/retrieve")
+    @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
+    public ResponseEntity<BaseResponse> getRegisteredStudentsForCourse(@RequestParam String courseCode) {
+        log.info("getting registered students for course: {}", courseCode);
+        StudentsRegisteredForCourseResponse response = courseRegistrationService.findStudentsRegisteredForCourse(courseCode);
+        return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
+    }
 }

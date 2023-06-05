@@ -1,6 +1,9 @@
 package io.todimu.practice.studentportal.service;
 
+import io.todimu.practice.studentportal.dto.StudentDto;
+import io.todimu.practice.studentportal.dto.TeacherDto;
 import io.todimu.practice.studentportal.dto.request.CourseRegistrationRequest;
+import io.todimu.practice.studentportal.dto.request.StudentsRegisteredForCourseResponse;
 import io.todimu.practice.studentportal.enumeration.CourseRegistrationStatus;
 import io.todimu.practice.studentportal.exception.CourseAlreadyRegisteredException;
 import io.todimu.practice.studentportal.model.Course;
@@ -21,6 +24,8 @@ import java.util.stream.Collectors;
 public class CourseRegistrationService {
 
     private final StudentService studentService;
+
+    private final TeacherService teacherService;
 
     private final CourseService courseService;
 
@@ -72,11 +77,27 @@ public class CourseRegistrationService {
         return hasIntersection;
     }
 
-    public CourseRegistration createCourseRegistrationDbo(Student student, Course course) {
+    private CourseRegistration createCourseRegistrationDbo(Student student, Course course) {
         return CourseRegistration.builder()
                 .course(course)
                 .student(student)
                 .registrationStatus(CourseRegistrationStatus.REGISTERED)
                 .build();
     }
+
+    public StudentsRegisteredForCourseResponse findStudentsRegisteredForCourse(String courseCode) {
+        Course course = courseService.findCourseByCourseCode(courseCode);
+        List<CourseRegistration> courseRegistrations = courseRegistrationRepository.findAllByCourse(course);
+        Set<StudentDto> registeredStudents = studentService.getStudentsFromCourseRegistration(courseRegistrations);
+        Set<TeacherDto> teacherDtos = teacherService.getCourseTeachersForCourse(course);
+
+        return StudentsRegisteredForCourseResponse.builder()
+                .courseCode(course.getCode())
+                .courseName(course.getName())
+                .courseTeachers(teacherDtos)
+                .registeredStudents(registeredStudents)
+                .build();
+    }
+
+
 }

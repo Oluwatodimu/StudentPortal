@@ -4,11 +4,14 @@ import io.todimu.practice.studentportal.dto.TeacherDto;
 import io.todimu.practice.studentportal.enumeration.TeacherStatus;
 import io.todimu.practice.studentportal.exception.UserNotFoundException;
 import io.todimu.practice.studentportal.mapper.TeacherMapper;
-import io.todimu.practice.studentportal.model.Teacher;
-import io.todimu.practice.studentportal.model.User;
+import io.todimu.practice.studentportal.model.*;
 import io.todimu.practice.studentportal.repository.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +40,13 @@ public class TeacherService {
     public Teacher findTeacherDboByEmail(String email) {
         return teacherRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("user not found"));
+    }
+
+    public Set<TeacherDto> getCourseTeachersForCourse(Course course) {
+        Set<CourseTeacher> courseTeachers = course.getCourseTeachers();
+        return courseTeachers.stream()
+                .map(CourseTeacher::getTeacher)
+                .map(teacherMapper::toDto)
+                .collect(Collectors.toSet());
     }
 }

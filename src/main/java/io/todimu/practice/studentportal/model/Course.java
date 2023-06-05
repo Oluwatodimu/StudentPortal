@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
+@ToString(exclude = {"courseTeachers", "courseRegistrations"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "course")
@@ -25,10 +28,25 @@ public class Course extends BaseEntity {
     private Integer units;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
-    @JsonIgnoreProperties(value = "course", allowSetters = true)
+    @JsonIgnoreProperties(value = "course")
     private Set<CourseRegistration> courseRegistrations;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
-    @JsonIgnoreProperties(value = "course", allowSetters = true)
+    @JsonIgnoreProperties(value = "course")
     private Set<CourseTeacher> courseTeachers;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code, units);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Course)) return false;
+        Course other = (Course) o;
+        return Objects.equals(name, other.name) &&
+                Objects.equals(code, other.code) &&
+                Objects.equals(units, other.units);
+    }
 }

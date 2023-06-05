@@ -3,6 +3,8 @@ package io.todimu.practice.studentportal.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Data
 @Entity
 @Builder
@@ -18,4 +20,19 @@ public class CourseGrade extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "course_registration_id")
     private CourseRegistration  courseRegistration;
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(grade);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CourseGrade)) return false;
+        CourseGrade other = (CourseGrade) o;
+        return Objects.equals(grade, other.grade) &&
+                Objects.equals(courseRegistration, other.courseRegistration);
+    }
 }

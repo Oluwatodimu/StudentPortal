@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class CourseTeacher extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
+    @JsonIgnoreProperties("courseTeachers")
     private Teacher teacher;
 }

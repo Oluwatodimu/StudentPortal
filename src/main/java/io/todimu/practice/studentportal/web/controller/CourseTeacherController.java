@@ -1,4 +1,4 @@
-package io.todimu.practice.studentportal.web;
+package io.todimu.practice.studentportal.web.controller;
 
 import io.todimu.practice.studentportal.dto.request.AssignTeacherToCourseRequest;
 import io.todimu.practice.studentportal.model.CourseTeacher;

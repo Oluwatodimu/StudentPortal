@@ -5,6 +5,7 @@ import io.todimu.practice.studentportal.dto.request.UpdateStudentRequest;
 import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import io.todimu.practice.studentportal.exception.UserNotFoundException;
 import io.todimu.practice.studentportal.mapper.StudentMapper;
+import io.todimu.practice.studentportal.model.CourseRegistration;
 import io.todimu.practice.studentportal.model.Student;
 import io.todimu.practice.studentportal.model.User;
 import io.todimu.practice.studentportal.repository.StudentRepository;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -95,6 +98,13 @@ public class StudentService {
         userService.updateStudentUserDetails(updateRequest);
         studentRepository.save(studentToUpdate);
         return studentMapper.toDto(studentToUpdate);
+    }
+
+    public Set<StudentDto> getStudentsFromCourseRegistration(List<CourseRegistration> courseRegistrations) {
+        return courseRegistrations.stream()
+                .map(CourseRegistration::getStudent)
+                .map(studentMapper::toDto)
+                .collect(Collectors.toSet());
     }
 
     // todo create custom annotations
