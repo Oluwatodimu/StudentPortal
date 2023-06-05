@@ -47,9 +47,20 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/student/register").permitAll()
                 .requestMatchers("/api/v1/student/activate").permitAll()
+                .requestMatchers("/api/v1/student/retrieve/{value}").authenticated()
+                .requestMatchers("/api/v1/student/retrieve").authenticated()
+                .requestMatchers("/api/v1/student/update").authenticated()
                 .requestMatchers("/api/v1/teacher/register").authenticated()
                 .requestMatchers("/api/v1/user/authenticate").permitAll()
+                .requestMatchers("/api/v1/course").authenticated()
+                .requestMatchers("/api/v1/course-registration").authenticated()
+                .requestMatchers("/api/v1/course-teacher").authenticated()
                 .requestMatchers("/api/v1/user/say-hi").authenticated()
+                .requestMatchers("/api/v1/course/retrieve").authenticated()
+                .requestMatchers("/api/v1/course-registration/retrieve").authenticated()
+                .requestMatchers("/api/v1/grade/retrieve").authenticated()
+                .requestMatchers("/api/v1/grade/update").authenticated()
+                .requestMatchers("/api/v1/grade/gpa").authenticated()
         ;
 
         return httpSecurity.build();

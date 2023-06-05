@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface CourseGradeRepository extends JpaRepository<CourseGrade, Long> {
+public interface CourseGradeRepository extends JpaRepository<CourseGrade, UUID> {
 
     Optional<CourseGrade> findByCourseRegistration(CourseRegistration courseRegistration);
 }

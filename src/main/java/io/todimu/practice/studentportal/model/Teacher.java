@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "teacher")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "courseTeachers")
 public class Teacher extends BaseEntity {
 
     @Column(name = "first_name")
@@ -33,7 +33,7 @@ public class Teacher extends BaseEntity {
     private TeacherStatus teacherStatus;
 
 
-    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "teacher", allowSetters = true)
     private Set<CourseTeacher> courseTeachers;
 }

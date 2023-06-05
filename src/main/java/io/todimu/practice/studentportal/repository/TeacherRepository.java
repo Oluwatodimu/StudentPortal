@@ -5,13 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface TeacherRepository extends JpaRepository<Teacher, Long> {
+public interface TeacherRepository extends JpaRepository<Teacher, UUID> {
 
-    Optional<Teacher> findById(Long id);
-
-    Optional<Teacher> findByEmail(String id);
+    Optional<Teacher> findByEmail(String email);
 
     Optional<Teacher> findByPhoneNumber(String phoneNumber);
 

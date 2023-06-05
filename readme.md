@@ -10,8 +10,8 @@ that has the following functionalities:
 5. ability to view student's gpa
 
 I broke the project down into four main parts:
-1. securing the application with authentication and authorization.
-2. building the business logic.
+1. securing the application with authentication and authorization. (done)
+2. building the business logic. (done)
 3. writing unit and integration tests
 4. containerizing and deploying the application.
 

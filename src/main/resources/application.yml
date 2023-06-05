@@ -8,6 +8,12 @@ spring:
   jackson:
     default-property-inclusion: non_default
 
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -35,6 +41,7 @@ spring:
 #        security:
 #          web:
 #            FilterChainProxy: DEBUG
+
 
 redis:
   host: localhost

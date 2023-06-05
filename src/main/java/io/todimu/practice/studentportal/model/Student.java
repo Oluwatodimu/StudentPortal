@@ -5,11 +5,14 @@ import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
+@ToString(exclude = "courseRegistrations")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "student")
@@ -34,7 +37,25 @@ public class Student extends BaseEntity {
     @Column(name = "matric_number", updatable = false)
     private String matricNumber;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "student", allowSetters = true)
     private Set<CourseRegistration> courseRegistrations;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, email, phoneNumber, studentStatus, matricNumber);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(firstName, student.firstName) &&
+                Objects.equals(lastName, student.lastName) &&
+                Objects.equals(email, student.email) &&
+                Objects.equals(phoneNumber, student.phoneNumber) &&
+                studentStatus == student.studentStatus &&
+                Objects.equals(matricNumber, student.matricNumber);
+    }
 }
