@@ -37,6 +37,7 @@ spring:
 #          web:
 #            FilterChainProxy: DEBUG
 
+
 redis:
   host: localhost
   port: 6379
