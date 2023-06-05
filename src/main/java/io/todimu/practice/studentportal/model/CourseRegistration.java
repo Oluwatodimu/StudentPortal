@@ -7,6 +7,7 @@ import lombok.*;
 @Data
 @Entity
 @Builder
+@ToString(exclude = "courseGrade")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "course_registration")

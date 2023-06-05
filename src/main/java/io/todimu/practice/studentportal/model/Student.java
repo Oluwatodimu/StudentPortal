@@ -8,9 +8,11 @@ import lombok.*;
 import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
+@ToString(exclude = "courseRegistrations")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "student")

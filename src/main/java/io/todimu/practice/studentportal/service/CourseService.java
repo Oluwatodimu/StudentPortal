@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +51,11 @@ public class CourseService {
 
     public Course findCourseByCourseCode(String code) {
         return courseRepository.findByCode(code)
+                .orElseThrow(() -> new CourseNotFoundException("course not found"));
+    }
+
+    public Course findCourseById(UUID id) {
+        return courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException("course not found"));
     }
 
