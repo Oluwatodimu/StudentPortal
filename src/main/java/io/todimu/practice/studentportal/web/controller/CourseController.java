@@ -29,7 +29,7 @@ public class CourseController {
 
     @PostMapping
     @PreAuthorize(MethodAuthorityConstants.ADMIN_ROLE)
-    public ResponseEntity<?> createCourse(@RequestBody @Validated CreateCourseRequest createCourseRequest) {
+    public ResponseEntity<?> createCourses(@RequestBody @Validated CreateCourseRequest createCourseRequest) {
         log.info("creating courses: {}", createCourseRequest.getCourses());
         List<CourseDto> response = courseService.createCourse(createCourseRequest);
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);

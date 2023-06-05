@@ -54,6 +54,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/user/authenticate").permitAll()
                 .requestMatchers("/api/v1/course").authenticated()
                 .requestMatchers("/api/v1/course-registration").authenticated()
+                .requestMatchers("/api/v1/course-teacher").authenticated()
                 .requestMatchers("/api/v1/user/say-hi").authenticated()
         ;
 

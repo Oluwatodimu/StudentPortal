@@ -2,6 +2,7 @@ package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.TeacherDto;
 import io.todimu.practice.studentportal.enumeration.TeacherStatus;
+import io.todimu.practice.studentportal.exception.UserNotFoundException;
 import io.todimu.practice.studentportal.mapper.TeacherMapper;
 import io.todimu.practice.studentportal.model.Teacher;
 import io.todimu.practice.studentportal.model.User;
@@ -31,5 +32,10 @@ public class TeacherService {
                 .email(user.getEmail())
                 .teacherStatus(TeacherStatus.ACTIVE)
                 .build();
+    }
+
+    public Teacher findTeacherDboByEmail(String email) {
+        return teacherRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("user not found"));
     }
 }
