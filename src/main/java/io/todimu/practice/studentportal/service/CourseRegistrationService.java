@@ -28,9 +28,13 @@ public class CourseRegistrationService {
 
     private final CourseService courseService;
 
-    private final CourseGradeService courseGradeService;
+    private CourseGradeService courseGradeService;
 
     private final CourseRegistrationRepository courseRegistrationRepository;
+
+    public void setCourseGradeService(CourseGradeService courseGradeService) {
+        this.courseGradeService = courseGradeService;
+    }
 
     public List<UUID> registerCourses(CourseRegistrationRequest registrationRequest) {
         Student student = studentService.findStudentDboByMatricNumber(registrationRequest.getMatricNumber());
@@ -96,5 +100,10 @@ public class CourseRegistrationService {
                 .courseTeachers(teacherDtos)
                 .registeredStudents(registeredStudents)
                 .build();
+    }
+
+    public CourseRegistration findByCourseAndStudent(Course course, Student student) {
+        return courseRegistrationRepository.findByCourseAndStudent(course, student)
+                .orElseThrow(() -> new RuntimeException("course registration not found"));
     }
 }

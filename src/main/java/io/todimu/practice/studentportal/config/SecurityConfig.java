@@ -58,7 +58,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/user/say-hi").authenticated()
                 .requestMatchers("/api/v1/course/retrieve").authenticated()
                 .requestMatchers("/api/v1/course-registration/retrieve").authenticated()
-                .requestMatchers("/api/v1/grade").authenticated()
+                .requestMatchers("/api/v1/grade/retrieve").authenticated()
+                .requestMatchers("/api/v1/grade/update").authenticated()
         ;
 
         return httpSecurity.build();
