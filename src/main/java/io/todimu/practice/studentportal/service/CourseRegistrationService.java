@@ -27,6 +27,9 @@ public class CourseRegistrationService {
 
     public List<UUID> registerCourses(CourseRegistrationRequest registrationRequest) {
         Student student = studentService.findStudentDboByMatricNumber(registrationRequest.getMatricNumber());
+
+        //todo ensure courses have not been previously registered
+
         List<Course> courseList = getCoursesFromRequest(registrationRequest.getCourseCodes());
         List<UUID> courseRegistrationIds = courseList.stream()
                 .map(course -> {
