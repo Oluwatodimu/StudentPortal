@@ -1,7 +1,6 @@
 package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.CourseDto;
-import io.todimu.practice.studentportal.dto.request.CourseToCreate;
 import io.todimu.practice.studentportal.dto.request.CreateCourseRequest;
 import io.todimu.practice.studentportal.exception.CourseNotFoundException;
 import io.todimu.practice.studentportal.mapper.CourseMapper;
@@ -25,21 +24,21 @@ public class CourseService {
     private final CourseRepository courseRepository;
 
     public List<CourseDto> createCourse(CreateCourseRequest createCourseRequest) {
-        Set<CourseToCreate> coursesToBeRegistered = createCourseRequest.getCoursesToCreate();
+        Set<CourseDto> coursesToBeRegistered = createCourseRequest.getCourses();
         List<Course> courseList = createCourseList(coursesToBeRegistered);
         courseList = courseRepository.saveAll(courseList);
         return convertToDtoList(courseList);
     }
 
-    private Course createCourseFromRequest(CourseToCreate courseToCreate) {
+    private Course createCourseFromRequest(CourseDto courseDto) {
         return Course.builder()
-                .name(courseToCreate.getName())
-                .code(courseToCreate.getCode())
-                .units(courseToCreate.getUnits())
+                .name(courseDto.getName())
+                .code(courseDto.getCode())
+                .units(courseDto.getUnits())
                 .build();
     }
 
-    private List<Course> createCourseList(Set<CourseToCreate> coursesToBeRegistered) {
+    private List<Course> createCourseList(Set<CourseDto> coursesToBeRegistered) {
         return coursesToBeRegistered.stream()
                 .map(this::createCourseFromRequest)
                 .toList();

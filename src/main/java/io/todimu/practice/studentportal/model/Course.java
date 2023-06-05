@@ -19,7 +19,7 @@ public class Course extends BaseEntity {
     private String name;
 
     @Column(name = "code")
-    private Long code;
+    private String code;
 
     @Column(name = "units")
     private Integer units;

@@ -10,8 +10,6 @@ import java.util.UUID;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, UUID> {
 
-    Optional<Teacher> findById(Long id);
-
     Optional<Teacher> findByEmail(String id);
 
     Optional<Teacher> findByPhoneNumber(String phoneNumber);
