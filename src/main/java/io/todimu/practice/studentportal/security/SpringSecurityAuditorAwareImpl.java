@@ -13,10 +13,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SpringSecurityAuditorAwareImpl implements AuditorAware<String> {
 
-    public static final String ANONYMOUS_USER = "anonymousUser";
-
-    private final UserRepository userRepository;
-
     @Override
     public Optional<String> getCurrentAuditor() {
         Optional<String> loggedInUser = getLoggedInUser();
