@@ -12,7 +12,7 @@ that has the following functionalities:
 I broke the project down into four main parts:
 1. securing the application with authentication and authorization. (done)
 2. building the business logic. (done)
-3. writing unit and integration tests
+3. writing unit and integration tests (in progress)
 4. containerizing and deploying the application.
 
 So far, I have completed only the first part which I will illustrate the 
