@@ -8,8 +8,6 @@ spring:
   jackson:
     default-property-inclusion: non_null
 
-  main:
-    allow-circular-references: true
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
