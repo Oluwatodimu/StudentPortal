@@ -3,7 +3,6 @@ package io.todimu.practice.studentportal.service;
 import io.todimu.practice.studentportal.dto.request.CourseRegistrationRequest;
 import io.todimu.practice.studentportal.enumeration.CourseRegistrationStatus;
 import io.todimu.practice.studentportal.exception.CourseAlreadyRegisteredException;
-import io.todimu.practice.studentportal.model.BaseEntity;
 import io.todimu.practice.studentportal.model.Course;
 import io.todimu.practice.studentportal.model.CourseRegistration;
 import io.todimu.practice.studentportal.model.Student;
@@ -15,7 +14,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Service
