@@ -1,22 +1,51 @@
 package io.todimu.practice.studentportal.service;
 
-
 import io.todimu.practice.studentportal.dto.CourseDto;
+import io.todimu.practice.studentportal.dto.request.CourseToCreate;
 import io.todimu.practice.studentportal.dto.request.CreateCourseRequest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import io.todimu.practice.studentportal.mapper.CourseMapper;
+import io.todimu.practice.studentportal.model.Course;
+import io.todimu.practice.studentportal.repository.CourseRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public interface CourseService {
+import java.util.List;
+import java.util.Set;
 
-    CourseDto createCourse(CreateCourseRequest createCourseRequest);
+@Service
+@RequiredArgsConstructor
+public class CourseService {
 
-    CourseDto findCourseById(Long id);
+    private final CourseMapper courseMapper;
 
-    CourseDto findCourseByName(String name);
+    private final CourseRepository courseRepository;
 
-    CourseDto findCourseByCode(Long code);
+    public List<CourseDto> createCourse(CreateCourseRequest createCourseRequest) {
+        Set<CourseToCreate> coursesToBeRegistered = createCourseRequest.getCoursesToCreate();
+        List<Course> courseList = createCourseList(coursesToBeRegistered);
+        courseList = courseRepository.saveAll(courseList);
+        return convertToDtoList(courseList);
+    }
 
-    Page<CourseDto> findAllCourses(Pageable pageable);
+    private Course createCourseFromRequest(CourseToCreate courseToCreate) {
+        return Course.builder()
+                .name(courseToCreate.getName())
+                .code(courseToCreate.getCode())
+                .units(courseToCreate.getUnits())
+                .build();
+    }
 
-    Page<CourseDto> findAllCoursesByUnits(Pageable pageable, Integer units);
+    private List<Course> createCourseList(Set<CourseToCreate> coursesToBeRegistered) {
+        return coursesToBeRegistered.stream()
+                .map(this::createCourseFromRequest)
+                .toList();
+    }
+
+    private List<CourseDto> convertToDtoList( List<Course> courseList) {
+        return courseList.stream()
+                .map(courseMapper::toDto)
+                .toList();
+    }
+
+
 }

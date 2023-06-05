@@ -2,13 +2,15 @@ package io.todimu.practice.studentportal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.Set;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "course")
 @EqualsAndHashCode(callSuper = true)
 public class Course extends BaseEntity {
