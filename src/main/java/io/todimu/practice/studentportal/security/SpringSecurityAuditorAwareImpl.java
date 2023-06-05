@@ -21,16 +21,11 @@ public class SpringSecurityAuditorAwareImpl implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         Optional<String> loggedInUser = getLoggedInUser();
         return Optional.of(loggedInUser.orElse(ResponseConstants.SYSTEM));
+
     }
 
     private Optional<String> getLoggedInUser() {
         String principal = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal.equals(ANONYMOUS_USER)) {
-            return Optional.of(ANONYMOUS_USER);
-        }
-
-        String userId = userRepository.findByEmailIgnoreCase(principal).get().getUserId().toString();
-        return Optional.of(userId);
+        return Optional.of(principal);
     }
 }
