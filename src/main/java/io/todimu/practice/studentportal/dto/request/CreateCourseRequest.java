@@ -2,9 +2,10 @@ package io.todimu.practice.studentportal.dto.request;
 
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 public class CreateCourseRequest {
-    private String name;
-    private Long code;
-    private Integer units;
+
+    private Set<CourseToCreate> coursesToCreate;
 }

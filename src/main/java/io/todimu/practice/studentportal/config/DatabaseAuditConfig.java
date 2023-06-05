@@ -11,16 +11,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@RequiredArgsConstructor
 @EnableTransactionManagement
 @EnableJpaRepositories("io.todimu.practice.studentportal.repository")
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAwareImpl")
 public class DatabaseAuditConfig {
 
-    private final UserRepository userRepository;
-
     @Bean
     public AuditorAware<String> auditorAware() {
-        return new SpringSecurityAuditorAwareImpl(userRepository);
+        return new SpringSecurityAuditorAwareImpl();
     }
 }

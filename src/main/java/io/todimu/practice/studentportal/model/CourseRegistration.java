@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.todimu.practice.studentportal.enumeration.CourseRegistrationStatus;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class CourseRegistration extends BaseEntity {
     @JoinColumn(name = "semester_id")
     private Semester semester;
 
-    @OneToOne(mappedBy = "course_registration", cascade = CascadeType.ALL)
-    private CourseGrade courseGrade;
+//    @JsonIgnoreProperties(value = "course_registration", allowSetters = true)
+//    @OneToOne(mappedBy = "course_registration", cascade = CascadeType.ALL)
+//    private CourseGrade courseGrade;
 }

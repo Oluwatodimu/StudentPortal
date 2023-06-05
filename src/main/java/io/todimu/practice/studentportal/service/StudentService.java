@@ -27,10 +27,6 @@ public class StudentService {
 
     private UserService userService;
 
-    private final CourseService courseService;
-
-    private final SemesterService semesterService;
-
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
