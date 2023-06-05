@@ -8,6 +8,9 @@ import io.todimu.practice.studentportal.model.Course;
 import io.todimu.practice.studentportal.model.CourseRegistration;
 import io.todimu.practice.studentportal.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,5 +67,14 @@ public class CourseService {
     public Course findCourseById(UUID id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException("course not found"));
+    }
+
+    public Page<CourseDto> findAllCourses(Pageable pageable) {
+        Page<Course> courses = courseRepository.findAll(pageable);
+        return new PageImpl<>(courses.getContent()
+                .stream()
+                .map(courseMapper::toDto)
+                .toList()
+        );
     }
 }
