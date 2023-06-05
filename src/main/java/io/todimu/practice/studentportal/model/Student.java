@@ -31,7 +31,7 @@ public class Student extends BaseEntity {
     @Column(name = "student_status")
     private StudentStatus studentStatus;
 
-    @Column(name = "student_id", updatable = false)
+    @Column(name = "matric_number", updatable = false)
     private String matricNumber;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)

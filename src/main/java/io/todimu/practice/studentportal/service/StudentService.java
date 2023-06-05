@@ -67,6 +67,11 @@ public class StudentService {
                 .orElseThrow(() -> new UserNotFoundException("student not found"));
     }
 
+    public Student findStudentDboByMatricNumber(String matricNumber) {
+        return studentRepository.findByMatricNumber(matricNumber)
+                .orElseThrow(() -> new UserNotFoundException("student not found"));
+    }
+
     private StudentDto findByEmail(String email) {
         return studentRepository.findByEmailIgnoreCase(email)
                 .map(studentMapper::toDto)
