@@ -106,4 +106,8 @@ public class CourseRegistrationService {
         return courseRegistrationRepository.findByCourseAndStudent(course, student)
                 .orElseThrow(() -> new RuntimeException("course registration not found"));
     }
+
+    public List<CourseRegistration> findAllByStudent(Student student) {
+        return courseRegistrationRepository.findAllByStudent(student);
+    }
 }

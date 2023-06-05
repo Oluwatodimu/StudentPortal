@@ -1,9 +1,11 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.dto.request.GPAResponse;
 import io.todimu.practice.studentportal.dto.request.GetStudentGradesResponse;
 import io.todimu.practice.studentportal.dto.request.UpdateStudentGradeRequest;
 import io.todimu.practice.studentportal.service.CourseGradeService;
 import io.todimu.practice.studentportal.service.StudentService;
+import io.todimu.practice.studentportal.utils.GPACalculator;
 import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
 import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
@@ -23,6 +25,8 @@ public class CourseGradeController {
 
     private final StudentService studentService;
 
+    private final GPACalculator gpaCalculator;
+
     private final CourseGradeService courseGradeService;
 
     @GetMapping(value = "/retrieve")
@@ -39,5 +43,13 @@ public class CourseGradeController {
         log.info("updating grades for student : {}", request.getMatricNumber());
         courseGradeService.updateStudentGrade(request);
         return new ResponseEntity<>(new BaseResponse(null, ResponseConstants.SUCCESS, false), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/gpa")
+    @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
+    public ResponseEntity<BaseResponse> getStudentGPA(@RequestParam(value = "matricNumber") String matricNumber) {
+        log.info("calculating  gpa for student : {}", matricNumber);
+        GPAResponse response = gpaCalculator.calculateStudentGpa(matricNumber);
+        return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 }
