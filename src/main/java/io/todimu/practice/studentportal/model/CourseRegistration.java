@@ -1,22 +1,24 @@
 package io.todimu.practice.studentportal.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.todimu.practice.studentportal.enumeration.CourseRegistrationStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "course_registration")
 @EqualsAndHashCode(callSuper = true)
 public class CourseRegistration extends BaseEntity {
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private CourseRegistrationStatus registrationStatus;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "matric_number")
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -27,7 +29,6 @@ public class CourseRegistration extends BaseEntity {
     @JoinColumn(name = "semester_id")
     private Semester semester;
 
-//    @JsonIgnoreProperties(value = "course_registration", allowSetters = true)
-//    @OneToOne(mappedBy = "course_registration", cascade = CascadeType.ALL)
-//    private CourseGrade courseGrade;
+    @OneToOne(mappedBy = "courseRegistration", cascade = CascadeType.ALL)
+    private CourseGrade courseGrade;
 }
