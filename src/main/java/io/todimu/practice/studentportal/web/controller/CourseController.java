@@ -5,7 +5,7 @@ import io.todimu.practice.studentportal.dto.request.CreateCourseRequest;
 import io.todimu.practice.studentportal.service.CourseService;
 import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
-import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
+import io.todimu.practice.studentportal.web.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

@@ -1,10 +1,12 @@
 package io.todimu.practice.studentportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,7 +14,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
-@ToString(exclude = "courseRegistrations")
+@ToString(exclude = {"courseRegistrations", "parents"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "student")
@@ -40,6 +42,10 @@ public class Student extends BaseEntity {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "student", allowSetters = true)
     private Set<CourseRegistration> courseRegistrations;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "students")
+    private Set<Parent> parents = new HashSet<>();
 
     @Override
     public int hashCode() {

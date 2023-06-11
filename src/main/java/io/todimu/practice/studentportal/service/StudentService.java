@@ -1,6 +1,7 @@
 package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.StudentDto;
+import io.todimu.practice.studentportal.dto.request.AddParentRequest;
 import io.todimu.practice.studentportal.dto.request.GetStudentGradesResponse;
 import io.todimu.practice.studentportal.dto.request.StudentGrades;
 import io.todimu.practice.studentportal.dto.request.UpdateStudentRequest;
@@ -8,6 +9,7 @@ import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import io.todimu.practice.studentportal.exception.UserNotFoundException;
 import io.todimu.practice.studentportal.mapper.StudentMapper;
 import io.todimu.practice.studentportal.model.CourseRegistration;
+import io.todimu.practice.studentportal.model.Parent;
 import io.todimu.practice.studentportal.model.Student;
 import io.todimu.practice.studentportal.model.User;
 import io.todimu.practice.studentportal.repository.StudentRepository;
@@ -30,6 +32,8 @@ public class StudentService {
     private final StudentRepository studentRepository;
 
     private final StudentMapper studentMapper;
+
+    private final ParentService parentService;
 
     private UserService userService;
 
@@ -127,5 +131,16 @@ public class StudentService {
                 .matricNumber(student.getMatricNumber())
                 .studentGradesList(studentGrades)
                 .build();
+    }
+
+    public Set<Parent> addParentData(AddParentRequest addParentRequest) {
+        Student student = findStudentDboByMatricNumber(addParentRequest.getMatricNumber());
+        parentService.addParentsData(addParentRequest.getParents(), student);
+        return student.getParents();
+    }
+
+    public Set<Parent> getStudentParents(String matricNumber) {
+        Student student = findStudentDboByMatricNumber(matricNumber);
+        return student.getParents();
     }
 }

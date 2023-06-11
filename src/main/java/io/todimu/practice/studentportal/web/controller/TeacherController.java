@@ -1,7 +1,7 @@
 package io.todimu.practice.studentportal.web.controller;
 
 import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
-import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
+import io.todimu.practice.studentportal.web.response.BaseResponse;
 import io.todimu.practice.studentportal.dto.TeacherUserDto;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.service.UserService;
