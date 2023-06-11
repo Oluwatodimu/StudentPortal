@@ -1,10 +1,9 @@
 package io.todimu.practice.studentportal.web.controller;
 
 import io.todimu.practice.studentportal.dto.request.AssignTeacherToCourseRequest;
-import io.todimu.practice.studentportal.model.CourseTeacher;
 import io.todimu.practice.studentportal.service.CourseTeacherService;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
-import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
+import io.todimu.practice.studentportal.web.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
