@@ -1,6 +1,6 @@
 package io.todimu.practice.studentportal.exception;
 
-import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
+import io.todimu.practice.studentportal.web.response.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -1,4 +1,4 @@
-package io.todimu.practice.studentportal.web.BaseResponse;
+package io.todimu.practice.studentportal.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

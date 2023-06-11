@@ -2,13 +2,15 @@ package io.todimu.practice.studentportal.web.controller;
 
 import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.StudentUserDto;
+import io.todimu.practice.studentportal.dto.request.AddParentRequest;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.dto.request.UpdateStudentRequest;
+import io.todimu.practice.studentportal.model.Parent;
 import io.todimu.practice.studentportal.service.StudentService;
 import io.todimu.practice.studentportal.service.UserService;
 import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
-import io.todimu.practice.studentportal.web.BaseResponse.BaseResponse;
+import io.todimu.practice.studentportal.web.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
