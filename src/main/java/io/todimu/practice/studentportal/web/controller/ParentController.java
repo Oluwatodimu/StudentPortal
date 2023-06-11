@@ -32,7 +32,7 @@ public class ParentController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 
-    @GetMapping(value = "retrieve")
+    @GetMapping(value = "/retrieve")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> getStudentParents(@RequestParam String matricNumber) {
         log.info("getting parents for student : {}",matricNumber);
