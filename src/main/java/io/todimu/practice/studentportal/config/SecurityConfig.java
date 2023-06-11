@@ -55,12 +55,13 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/course").authenticated()
                 .requestMatchers("/api/v1/course-registration").authenticated()
                 .requestMatchers("/api/v1/course-teacher").authenticated()
-                .requestMatchers("/api/v1/user/say-hi").authenticated()
                 .requestMatchers("/api/v1/course/retrieve").authenticated()
                 .requestMatchers("/api/v1/course-registration/retrieve").authenticated()
                 .requestMatchers("/api/v1/grade/retrieve").authenticated()
                 .requestMatchers("/api/v1/grade/update").authenticated()
                 .requestMatchers("/api/v1/grade/gpa").authenticated()
+                .requestMatchers("/api/v1/parent/retrieve").authenticated()
+                .requestMatchers("/api/v1/parent/update").authenticated()
         ;
 
         return httpSecurity.build();
