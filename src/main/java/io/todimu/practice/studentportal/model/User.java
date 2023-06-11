@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Builder
-@ToString
+@ToString(exclude = "authorities")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
@@ -62,7 +62,18 @@ public class User extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId); // Use only userId for hashCode calculation
+        return Objects.hash(
+                userId,
+                password,
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                imageUrl,
+                activated,
+                passwordResetDate,
+                userStatus
+        );
     }
 
     @Override
@@ -74,7 +85,16 @@ public class User extends BaseEntity {
             return false;
         }
         User other = (User) obj;
-        return Objects.equals(userId, other.userId); // Compare only userId for equality
+        return Objects.equals(userId, other.userId) &&
+                Objects.equals(password, other.password) &&
+                Objects.equals(firstName, other.firstName) &&
+                Objects.equals(lastName, other.lastName) &&
+                Objects.equals(email, other.email) &&
+                Objects.equals(phoneNumber, other.phoneNumber) &&
+                Objects.equals(imageUrl, other.imageUrl) &&
+                Objects.equals(activated, other.activated) &&
+                Objects.equals(passwordResetDate, other.passwordResetDate) &&
+                Objects.equals(userStatus, other.userStatus);
     }
 
 }
