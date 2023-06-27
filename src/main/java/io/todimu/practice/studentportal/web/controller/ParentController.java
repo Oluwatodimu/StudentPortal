@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Slf4j
@@ -26,7 +27,7 @@ public class ParentController {
 
     @PatchMapping(value = "/update")
     @PreAuthorize(MethodAuthorityConstants.STUDENT_AND_ADMIN_ROLES)
-    public ResponseEntity<BaseResponse> addParentsData(@RequestBody @Validated AddParentRequest addParentRequest) {
+    public ResponseEntity<BaseResponse> addParentsData(@RequestBody @Valid AddParentRequest addParentRequest) {
         log.info("add parent info for student : {}", addParentRequest.getMatricNumber());
         Set<Parent> response = studentService.addParentData(addParentRequest);
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);

@@ -2,8 +2,8 @@ package io.todimu.practice.studentportal.service;
 
 import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.request.AddParentRequest;
-import io.todimu.practice.studentportal.dto.request.GetStudentGradesResponse;
-import io.todimu.practice.studentportal.dto.request.StudentGrades;
+import io.todimu.practice.studentportal.dto.response.GetStudentGradesResponse;
+import io.todimu.practice.studentportal.dto.response.StudentGrades;
 import io.todimu.practice.studentportal.dto.request.UpdateStudentRequest;
 import io.todimu.practice.studentportal.enumeration.StudentStatus;
 import io.todimu.practice.studentportal.exception.UserNotFoundException;

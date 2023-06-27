@@ -1,4 +1,4 @@
-package io.todimu.practice.studentportal.dto.request;
+package io.todimu.practice.studentportal.dto.response;
 
 import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.TeacherDto;

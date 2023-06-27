@@ -2,10 +2,8 @@ package io.todimu.practice.studentportal.web.controller;
 
 import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.StudentUserDto;
-import io.todimu.practice.studentportal.dto.request.AddParentRequest;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.dto.request.UpdateStudentRequest;
-import io.todimu.practice.studentportal.model.Parent;
 import io.todimu.practice.studentportal.service.StudentService;
 import io.todimu.practice.studentportal.service.UserService;
 import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
@@ -18,10 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Slf4j
@@ -35,7 +32,7 @@ public class StudentController extends BaseController {
     private final StudentService studentService;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<BaseResponse> registerStudent(@RequestBody @Validated RegisterUserRequest registerUserRequest) {
+    public ResponseEntity<BaseResponse> registerStudent(@RequestBody @Valid RegisterUserRequest registerUserRequest) {
         log.info("registering student with email : {}", registerUserRequest.getEmail());
         StudentUserDto response = userService.registerStudentUser(registerUserRequest);
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);
@@ -66,7 +63,7 @@ public class StudentController extends BaseController {
 
     @PatchMapping(value = "/update")
     @PreAuthorize(MethodAuthorityConstants.STUDENT_ROLE)
-    public ResponseEntity<BaseResponse> updateStudentDetails(@RequestBody @Validated UpdateStudentRequest updateRequest) {
+    public ResponseEntity<BaseResponse> updateStudentDetails(@RequestBody @Valid UpdateStudentRequest updateRequest) {
         log.info("updating student with email : {}", updateRequest.getEmail());
         StudentDto response = studentService.updateStudentDetails(updateRequest);
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
