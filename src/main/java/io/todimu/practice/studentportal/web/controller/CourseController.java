@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.CourseDto;
 import io.todimu.practice.studentportal.dto.request.CreateCourseRequest;
 import io.todimu.practice.studentportal.service.CourseService;
@@ -26,6 +27,7 @@ public class CourseController extends BaseController {
 
     private final CourseService courseService;
 
+    @RateLimited
     @PostMapping
     @PreAuthorize(MethodAuthorityConstants.ADMIN_ROLE)
     public ResponseEntity<?> createCourses(@RequestBody @Valid CreateCourseRequest createCourseRequest) {
@@ -34,6 +36,7 @@ public class CourseController extends BaseController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);
     }
 
+    @RateLimited
     @GetMapping(value = "/retrieve")
     public ResponseEntity<BaseResponse> getAllCourses(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
         log.info("getting all courses");

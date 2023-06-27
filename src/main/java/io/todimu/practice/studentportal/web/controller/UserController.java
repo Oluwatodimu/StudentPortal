@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.request.LoginRequest;
 import io.todimu.practice.studentportal.security.jwt.JwtToken;
 import io.todimu.practice.studentportal.service.UserService;
@@ -26,6 +27,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @RateLimited
     @PostMapping(value = "/authenticate")
     public ResponseEntity<BaseResponse> authenticateUser(@RequestBody @Valid LoginRequest loginRequest) {
         log.info("authenticating user : {}", loginRequest.getUsername());

@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.request.AssignTeacherToCourseRequest;
 import io.todimu.practice.studentportal.service.CourseTeacherService;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
@@ -25,6 +26,7 @@ public class CourseTeacherController {
 
     private final CourseTeacherService courseTeacherService;
 
+    @RateLimited
     @PostMapping
     public ResponseEntity<BaseResponse> assignTeacherToCourse(@RequestBody @Valid AssignTeacherToCourseRequest request) {
         log.info("assigning teacher {} to course", request.getTeacherEmail());

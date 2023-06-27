@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.request.UpdateStudentGradeRequest;
 import io.todimu.practice.studentportal.dto.response.GPAResponse;
 import io.todimu.practice.studentportal.dto.response.GetStudentGradesResponse;
@@ -30,6 +31,7 @@ public class CourseGradeController {
 
     private final CourseGradeService courseGradeService;
 
+    @RateLimited
     @GetMapping(value = "/retrieve")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> getStudentGrades(@RequestParam(value = "matricNumber") String matricNumber) {
@@ -38,6 +40,7 @@ public class CourseGradeController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 
+    @RateLimited
     @PatchMapping("/update")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> updateStudentGrades(@RequestBody @Valid UpdateStudentGradeRequest request) {
@@ -46,6 +49,7 @@ public class CourseGradeController {
         return new ResponseEntity<>(new BaseResponse(null, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 
+    @RateLimited
     @GetMapping(value = "/gpa")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> getStudentGPA(@RequestParam(value = "matricNumber") String matricNumber) {

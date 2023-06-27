@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.TeacherUserDto;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
 import io.todimu.practice.studentportal.service.UserService;
@@ -26,6 +27,7 @@ public class TeacherController {
 
     private final UserService userService;
 
+    @RateLimited
     @PostMapping(value = "/register")
     @PreAuthorize(MethodAuthorityConstants.ADMIN_ROLE)
     public ResponseEntity<BaseResponse> registerTeacher(@RequestBody @Valid RegisterUserRequest registerUserRequest) {

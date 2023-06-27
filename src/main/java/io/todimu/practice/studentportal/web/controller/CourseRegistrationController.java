@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.request.CourseRegistrationRequest;
 import io.todimu.practice.studentportal.dto.response.StudentsRegisteredForCourseResponse;
 import io.todimu.practice.studentportal.service.CourseRegistrationService;
@@ -26,6 +27,7 @@ public class CourseRegistrationController {
 
     private final CourseRegistrationService courseRegistrationService;
 
+    @RateLimited
     @PostMapping
     @PreAuthorize(MethodAuthorityConstants.STUDENT_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> registerCourses(@RequestBody @Valid CourseRegistrationRequest registrationRequest) {
@@ -34,6 +36,7 @@ public class CourseRegistrationController {
         return new ResponseEntity<>(new BaseResponse(uuidList, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);
     }
 
+    @RateLimited
     @GetMapping("/retrieve")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> getRegisteredStudentsForCourse(@RequestParam String courseCode) {

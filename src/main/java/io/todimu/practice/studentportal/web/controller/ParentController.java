@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.request.AddParentRequest;
 import io.todimu.practice.studentportal.model.Parent;
 import io.todimu.practice.studentportal.service.StudentService;
@@ -25,6 +26,7 @@ public class ParentController {
 
     private final StudentService studentService;
 
+    @RateLimited
     @PatchMapping(value = "/update")
     @PreAuthorize(MethodAuthorityConstants.STUDENT_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> addParentsData(@RequestBody @Valid AddParentRequest addParentRequest) {
@@ -33,6 +35,7 @@ public class ParentController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 
+    @RateLimited
     @GetMapping(value = "/retrieve")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> getStudentParents(@RequestParam String matricNumber) {

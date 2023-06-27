@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.StudentUserDto;
 import io.todimu.practice.studentportal.dto.request.RegisterUserRequest;
@@ -31,6 +32,7 @@ public class StudentController extends BaseController {
 
     private final StudentService studentService;
 
+    @RateLimited
     @PostMapping(value = "/register")
     public ResponseEntity<BaseResponse> registerStudent(@RequestBody @Valid RegisterUserRequest registerUserRequest) {
         log.info("registering student with email : {}", registerUserRequest.getEmail());
@@ -38,6 +40,7 @@ public class StudentController extends BaseController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);
     }
 
+    @RateLimited
     @PatchMapping(value = "/activate")
     public ResponseEntity<BaseResponse> activateStudent(@RequestParam(name = "key") String key, @RequestParam(name = "userId") UUID userId) {
         log.info("activating student account with id : {}", userId);
@@ -45,6 +48,7 @@ public class StudentController extends BaseController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 
+    @RateLimited
     @GetMapping(value = "/retrieve/{emailOrMatricNumber}")
     public ResponseEntity<BaseResponse> getStudentDetails(@PathVariable String emailOrMatricNumber) {
         log.info("getting student details for student : {}", emailOrMatricNumber);
@@ -52,6 +56,7 @@ public class StudentController extends BaseController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 
+    @RateLimited
     @GetMapping(value = "/retrieve")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> getAllStudents(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
@@ -61,6 +66,7 @@ public class StudentController extends BaseController {
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.OK);
     }
 
+    @RateLimited
     @PatchMapping(value = "/update")
     @PreAuthorize(MethodAuthorityConstants.STUDENT_ROLE)
     public ResponseEntity<BaseResponse> updateStudentDetails(@RequestBody @Valid UpdateStudentRequest updateRequest) {
