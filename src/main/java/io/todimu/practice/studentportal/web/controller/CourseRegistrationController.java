@@ -1,7 +1,8 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.request.CourseRegistrationRequest;
-import io.todimu.practice.studentportal.dto.request.StudentsRegisteredForCourseResponse;
+import io.todimu.practice.studentportal.dto.response.StudentsRegisteredForCourseResponse;
 import io.todimu.practice.studentportal.service.CourseRegistrationService;
 import io.todimu.practice.studentportal.utils.MethodAuthorityConstants;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
@@ -14,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,14 +27,16 @@ public class CourseRegistrationController {
 
     private final CourseRegistrationService courseRegistrationService;
 
+    @RateLimited
     @PostMapping
     @PreAuthorize(MethodAuthorityConstants.STUDENT_AND_ADMIN_ROLES)
-    public ResponseEntity<BaseResponse> registerCourses(@RequestBody @Validated CourseRegistrationRequest registrationRequest) {
+    public ResponseEntity<BaseResponse> registerCourses(@RequestBody @Valid CourseRegistrationRequest registrationRequest) {
         log.info("registering courses for student: {}",registrationRequest.getMatricNumber());
         List<UUID> uuidList = courseRegistrationService.registerCourses(registrationRequest);
         return new ResponseEntity<>(new BaseResponse(uuidList, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);
     }
 
+    @RateLimited
     @GetMapping("/retrieve")
     @PreAuthorize(MethodAuthorityConstants.TEACHER_AND_ADMIN_ROLES)
     public ResponseEntity<BaseResponse> getRegisteredStudentsForCourse(@RequestParam String courseCode) {

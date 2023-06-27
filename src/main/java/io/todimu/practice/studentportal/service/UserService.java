@@ -121,7 +121,7 @@ public class UserService {
         );
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(token);
-        return jwtTokenProvider.createToken(authentication);
+        return jwtTokenProvider.createToken(authentication, loginRequest.isRememberMe());
     }
 
     @Transactional

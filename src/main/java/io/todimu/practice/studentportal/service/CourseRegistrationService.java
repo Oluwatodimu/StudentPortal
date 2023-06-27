@@ -3,7 +3,7 @@ package io.todimu.practice.studentportal.service;
 import io.todimu.practice.studentportal.dto.StudentDto;
 import io.todimu.practice.studentportal.dto.TeacherDto;
 import io.todimu.practice.studentportal.dto.request.CourseRegistrationRequest;
-import io.todimu.practice.studentportal.dto.request.StudentsRegisteredForCourseResponse;
+import io.todimu.practice.studentportal.dto.response.StudentsRegisteredForCourseResponse;
 import io.todimu.practice.studentportal.enumeration.CourseRegistrationStatus;
 import io.todimu.practice.studentportal.exception.CourseAlreadyRegisteredException;
 import io.todimu.practice.studentportal.model.Course;

@@ -3,6 +3,9 @@ package io.todimu.practice.studentportal.dto.request;
 import lombok.Data;
 import lombok.NonNull;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+
 @Data
 public class CreateTeacherRequest {
 
@@ -13,8 +16,10 @@ public class CreateTeacherRequest {
     private String lastName;
 
     @NonNull
+    @Pattern(regexp = "\\d{13}")
     private String phoneNumber;
 
+    @Email
     @NonNull
     private String email;
 }

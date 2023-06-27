@@ -20,7 +20,7 @@ import java.util.Set;
 @Component
 public class JwtTokenProvider {
 
-    public JwtToken createToken(Authentication authentication) {
+    public JwtToken createToken(Authentication authentication, boolean rememberMe) {
         JwtToken token = null;
         if (authentication != null) {
             SecretKey secretKey = Keys.hmacShaKeyFor(AuthoritiesConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
@@ -28,7 +28,7 @@ public class JwtTokenProvider {
                     .claim("username", authentication.getName())
                     .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date((new Date()).getTime() + 4000000))
+                    .setExpiration(setExpirationTime(rememberMe))
                     .signWith(secretKey).
                     compact();
 
@@ -36,6 +36,16 @@ public class JwtTokenProvider {
         }
 
         return token;
+    }
+
+    private Date setExpirationTime(boolean rememberMe) {
+        long expirationTimeMillis;
+        if (rememberMe) {
+            expirationTimeMillis = System.currentTimeMillis() + (72 * 60 * 60 * 1000);
+        } else {
+            expirationTimeMillis = System.currentTimeMillis() + (60 * 60 * 1000);
+        }
+        return new Date(expirationTimeMillis);
     }
 
     public boolean validateToken(String jwtToken) {
