@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 @Data
@@ -13,16 +14,23 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 public class RegisterUserRequest {
 
-    @NonNull private String firstName;
+    @NonNull
+    @NotEmpty
+    private String firstName;
 
-    @NonNull private String lastName;
+    @NonNull
+    @NotEmpty
+    private String lastName;
 
+    @NonNull
     @Pattern(regexp = "^\\d{13}$")
-    @NonNull private String phoneNumber;
+    private String phoneNumber;
 
     @Email
-    @NonNull private String email;
+    @NonNull
+    private String email;
 
+    @NonNull
     @Pattern(regexp = "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$")
-    @NonNull private String password;
+    private String password;
 }

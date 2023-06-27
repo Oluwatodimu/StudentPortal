@@ -2,6 +2,7 @@ package io.todimu.practice.studentportal.dto.request;
 
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +17,7 @@ public class UpdateStudentRequest {
     @NotEmpty
     private String lastName;
 
+    @Email
     @NotNull
     @NotEmpty
     private String email;

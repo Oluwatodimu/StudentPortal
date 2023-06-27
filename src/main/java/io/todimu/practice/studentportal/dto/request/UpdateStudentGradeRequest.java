@@ -3,6 +3,7 @@ package io.todimu.practice.studentportal.dto.request;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Map;
 
 @Data
@@ -13,6 +14,7 @@ public class UpdateStudentGradeRequest {
 
     @NonNull
     @NotEmpty
+    @Pattern(regexp = "\\d{6}")
     private String matricNumber;
 
     @NonNull
