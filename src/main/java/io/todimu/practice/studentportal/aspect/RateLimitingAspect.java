@@ -1,4 +1,4 @@
-package io.todimu.practice.studentportal.annotation;
+package io.todimu.practice.studentportal.aspect;
 
 import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.todimu.practice.studentportal.exception.RateLimitException;
