@@ -17,9 +17,9 @@ spring:
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://bf5x9wnf1snfkoigvlqd-mysql.services.clever-cloud.com:3306/bf5x9wnf1snfkoigvlqd?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
-    username: u4zhwwzvraeslyh0
-    password: KfOX3jAbC77IxSHZeAg0
+    url: jdbc:mysql://student-management-system.crruakemgggf.us-east-1.rds.amazonaws.com:3306/student_management_system?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username: admin
+    password: password123$
     hikari:
       poolName: Hikari
       auto-commit: false
