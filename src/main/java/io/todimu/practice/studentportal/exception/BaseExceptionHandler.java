@@ -8,6 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -50,5 +51,12 @@ public class BaseExceptionHandler {
         log.error(ex.getMessage(), ex.getLocalizedMessage());
         return new BaseResponse(null, (ex.getMessage() != null) ? ex.getMessage() : "Oops something went wrong !!!", true);
 
+    }
+
+    @ResponseBody
+    @ExceptionHandler(RateLimitException.class)
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public BaseResponse handleRateLimitException(RateLimitException ex) {
+       return new BaseResponse(null, ex.getMessage(), true);
     }
 }

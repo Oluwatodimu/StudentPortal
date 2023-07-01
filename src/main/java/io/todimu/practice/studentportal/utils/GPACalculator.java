@@ -1,6 +1,6 @@
 package io.todimu.practice.studentportal.utils;
 
-import io.todimu.practice.studentportal.dto.request.GPAResponse;
+import io.todimu.practice.studentportal.dto.response.GPAResponse;
 import io.todimu.practice.studentportal.model.CourseRegistration;
 import io.todimu.practice.studentportal.model.Student;
 import io.todimu.practice.studentportal.service.CourseRegistrationService;

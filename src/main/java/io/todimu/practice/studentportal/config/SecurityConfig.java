@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.config;
 
+import io.todimu.practice.studentportal.security.filter.CsrfCookieFilter;
 import io.todimu.practice.studentportal.security.filter.JwtValidationFilter;
 import io.todimu.practice.studentportal.security.jwt.JwtTokenProvider;
 import io.todimu.practice.studentportal.utils.AuthoritiesConstants;
@@ -13,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Collections;
@@ -27,10 +30,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        CsrfTokenRequestAttributeHandler requestAttributeHandler = new CsrfTokenRequestAttributeHandler();
+
         httpSecurity
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .csrf().disable()
+                .csrf(csrf -> csrf.csrfTokenRequestHandler(requestAttributeHandler)
+                        .ignoringRequestMatchers("/api/v1/student/register")
+                        .ignoringRequestMatchers("/api/v1/student/activate")
+                        .ignoringRequestMatchers("/api/v1/user/authenticate")
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .cors().configurationSource(
                         request -> {
                             CorsConfiguration configuration = new CorsConfiguration();
@@ -44,6 +53,7 @@ public class SecurityConfig {
                         })
                 .and()
                 .addFilterBefore(new JwtValidationFilter(jwtTokenProvider), BasicAuthenticationFilter.class)
+                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/student/register").permitAll()
                 .requestMatchers("/api/v1/student/activate").permitAll()

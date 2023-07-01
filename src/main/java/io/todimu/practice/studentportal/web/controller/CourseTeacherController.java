@@ -1,5 +1,6 @@
 package io.todimu.practice.studentportal.web.controller;
 
+import io.todimu.practice.studentportal.annotation.RateLimited;
 import io.todimu.practice.studentportal.dto.request.AssignTeacherToCourseRequest;
 import io.todimu.practice.studentportal.service.CourseTeacherService;
 import io.todimu.practice.studentportal.utils.ResponseConstants;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Slf4j
@@ -24,8 +26,9 @@ public class CourseTeacherController {
 
     private final CourseTeacherService courseTeacherService;
 
+    @RateLimited
     @PostMapping
-    public ResponseEntity<BaseResponse> assignTeacherToCourse(@RequestBody @Validated AssignTeacherToCourseRequest request) {
+    public ResponseEntity<BaseResponse> assignTeacherToCourse(@RequestBody @Valid AssignTeacherToCourseRequest request) {
         log.info("assigning teacher {} to course", request.getTeacherEmail());
         UUID response = courseTeacherService.assignTeacherToCourse(request);
         return new ResponseEntity<>(new BaseResponse(response, ResponseConstants.SUCCESS, false), HttpStatus.CREATED);

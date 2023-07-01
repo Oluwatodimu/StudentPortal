@@ -19,7 +19,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/student_management_system?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: root
-    password:
+    password: Zawarudo12!@
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -29,15 +29,6 @@ spring:
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
 
-#logging:
-#  level:
-#    org:
-#      springframework:
-#        security:
-#          web:
-#            FilterChainProxy: DEBUG
-
-
 redis:
   host: localhost
   port: 6379
@@ -45,3 +36,7 @@ redis:
   database: 0
   timeout: 1000
   timeToLive: 15
+
+treblle:
+  api-key: HeyANOrCZwEPLKD3ViPhQKSDXJfJMYTg
+  project-id: vZEhEssIg6r7uWKB
