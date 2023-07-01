@@ -66,7 +66,6 @@ public class StudentService {
         } else if (emailOrMatricNumber.matches("\\d{6}")) {
             studentDto = findByMatricNumber(emailOrMatricNumber);
         }
-
         return studentDto;
     }
 

@@ -34,7 +34,6 @@ public class JwtTokenProvider {
 
             token = new JwtToken(jwtToken);
         }
-
         return token;
     }
 

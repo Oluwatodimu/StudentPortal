@@ -17,9 +17,6 @@ public class BaseController {
         } else {
             pageable = PageRequest.of(pageNumber, pageSize);
         }
-
         return  pageable;
-
-
     }
 }
