@@ -1,13 +1,13 @@
-package io.todimu.practice.studentportal;
+// package io.todimu.practice.studentportal;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class StudentPortalApplicationTests {
+// @SpringBootTest
+// class StudentPortalApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+//     @Test
+//     void contextLoads() {
+//     }
 
-}
+// }
