@@ -21,7 +21,7 @@ public class ApplicationConfig {
     public RateLimiter rateLimiter() {
         RateLimiterConfig rateLimiterConfig = RateLimiterConfig.custom()
                 .limitForPeriod(100)
-                .limitRefreshPeriod(Duration.ofMinutes(5))
+                .limitRefreshPeriod(Duration.ofMinutes(3))
                 .build();
 
         RateLimiterRegistry rateLimiterRegistry = RateLimiterRegistry.of(rateLimiterConfig);
