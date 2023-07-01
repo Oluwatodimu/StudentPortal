@@ -30,9 +30,9 @@ spring:
         useServerPrepStmts: true
 
 redis:
-  host: bfgcgzatztqchphcwy5k-redis.services.clever-cloud.com
-  port: 3512
-  password: 3pOu1Cgf569Jjvxs81H
+  host: redis-16989.c14.us-east-1-3.ec2.cloud.redislabs.com
+  port: 16989
+  password: EqEd3t4jnqQfHw3BV8QnWT2fMs3XvNZQ
   database: 0
   timeout: 1000
   timeToLive: 15
