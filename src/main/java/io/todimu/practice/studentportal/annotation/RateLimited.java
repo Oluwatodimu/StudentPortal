@@ -15,3 +15,4 @@ public @interface RateLimited {
 // todo deploy application on render
 // todo write github actions
 // todo hide sensitive data
+// todo write tests
