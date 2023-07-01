@@ -4,6 +4,6 @@
     "goal": "package"
   },
   "deploy": {
-    "jarName": "target/StudentPortal-0.0.1-SNAPSHOT.jar StudentPortal.jar"
+    "jarName": "/target/StudentPortal-0.0.1-SNAPSHOT.jar StudentPortal.jar"
   }
 }
