@@ -36,7 +36,3 @@ redis:
   database: 0
   timeout: 1000
   timeToLive: 15
-
-treblle:
-  api-key: HeyANOrCZwEPLKD3ViPhQKSDXJfJMYTg
-  project-id: vZEhEssIg6r7uWKB
